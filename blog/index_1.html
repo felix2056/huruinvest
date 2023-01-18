@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="tr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaplayıcı</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" id="generate-fonts-css" href="//fonts.googleapis.com/css?family=Cabin:regular,italic,500,500italic,600,600italic,700,700italic" media="all">
+
+   <link rel="stylesheet" href="css/flatpickr.min.css">
+    <link rel="stylesheet" href="css/montSelect.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+    <div id="app">
+        <h1>If i had invested in bitcoin</h1>
+        <p>Simple Bitcoin return calculator. Choose a date, determine the amount of the investment and calculate.</p>
+        <form id="form">
+            <div class="bal-input-group">
+                <label for="">Investment ($)</label>
+                <input id="amount" class="bal-input form-control" type="number" placeholder="100" required="" min="0/">
+            </div>
+            <div class="bal-input-group">
+                <label for="">Date</label>
+                <input id="month" class="bal-input form-control" type="text" placeholder="MM/YY" required="" pattern="(0\d|10|11|12)\/\d{2}">
+            </div>
+            <button id="cta" class="bal-button">Calculate</button>
+        </form>
+    </div>
+    <div id="results" class="bal-result-card">
+        <p class="bal-result">
+            <span>Profit (Tax-free)</span>
+            <span id="gross-profit" class="result">--- $</span>
+        </p>
+        <p class="bal-result">
+            <span>Return (%)</span>
+            <span id="roi" class="result">--- %</span>
+        </p>
+    </div>
+    <div class="bal-warn">
+        <p>Disclaimer: NO INVESTMENT ADVICE The Content is for informational purposes only, you should not construe any such information or other material as legal, tax, investment, financial, or other advice.</p>
+    </div>
+    
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/papaparse.min.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/flatpickr.min.js"></script>
+    <script type="text/javascript" src="js/monthSelect.js"></script>
+    <script type="text/javascript" src="js/tr.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script>
+        $('#month').flatpickr({
+            dateFormat: "m/y",
+            minDate: "08/14",
+            maxDate: "today",
+            plugins: [
+                new monthSelectPlugin({
+                    shorthand: true,
+                    dateFormat: "m/y",
+                    altFormat: "F Y",
+                    theme: "dark"
+                })
+            ]
+        })
+    </script>
+
+</body></html>

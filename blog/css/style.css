@@ -1,0 +1,222 @@
+*, *::after, *::before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body, * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: block;
+}
+
+#app {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: url(https://d2taxg4athmp0q.cloudfront.net/web/production/images/ac5efc0….png) #f2f2f2;
+    padding: 2rem;
+    font-family: 'Cabin';
+    border-radius: 10px;
+}
+
+#app h1 {
+    display: block;
+    color: #4232b1;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25rem;
+    margin: 0 0 2.5rem;
+}
+
+#app p {
+  display: block;
+  font-size: 17px;
+  line-height: 1.25rem;
+  margin: 0 0 1rem;
+}
+
+#app .bal-input-group {
+  display: block;
+  width: 100%;
+  margin: 0 0 .75rem;
+}
+
+#app .bal-input-group label {
+    font-size: 17px;
+    font-weight: 500;
+    padding-bottom: 10px;
+    display: block;
+}
+
+#app .bal-input-group input {
+  display: block;
+  width: 100%;
+  color: #201F46;
+  background-color: #F7F6FB;
+  padding: .75rem 1rem;
+  border-radius: 5px;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: background-color .3s linear;
+  transition: background-color .3s linear;
+}
+
+#app .bal-input-group input:hover, #app .bal-input-group input:active, #app .bal-input-group input:focus {
+  outline: none;
+  background-color: #eeebf6;
+}
+
+#app button {
+  width: 100%;
+  color: #FFF;
+  background-color: #201F46;
+  margin: .75rem 0 0;
+  padding: .75rem 1rem;
+  text-align: center;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#app button:hover, #app button:active, #app button:focus {
+  outline: none;
+  background-color: #1b1a3b;
+}
+
+.bal-result-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  width: 100%;
+  height: auto;
+  margin: 1rem 0 0;
+  font-family: 'Cabin', cursive;
+  opacity: unset;
+  visibility: hidden;
+  z-index: -9;
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
+  -webkit-transition: z-index .6s, visibility .6s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index .6s, visibility .6s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index .6s, visibility .6s, opacity .3s, transform .3s ease-in;
+  transition: z-index .6s, visibility .6s, opacity .3s, transform .3s ease-in, -webkit-transform .3s ease-in;
+}
+
+.bal-result-card .bal-result {
+  display: block;
+  width: 100%;
+  color: #FFF;
+  background-color: #4232b1;
+  font-size: .875rem;
+  margin: .5rem 0;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.bal-result-card .bal-result span {
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.bal-result-card .bal-result span.result {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.bal-result-card.bal-active {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  z-index: 1;
+  -webkit-transition: z-index 0s, visibility 0s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index 0s, visibility 0s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index 0s, visibility 0s, opacity .3s, transform .3s ease-in;
+  transition: z-index 0s, visibility 0s, opacity .3s, transform .3s ease-in, -webkit-transform .3s ease-in;
+}
+
+.bal-warn {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  opacity: unset;
+  visibility: hidden;
+  z-index: -9;
+  -webkit-transform: translateY(-20px);
+          transform: translateY(-20px);
+  -webkit-transition: z-index .6s, visibility .6s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index .6s, visibility .6s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index .6s, visibility .6s, opacity .3s, transform .3s ease-in;
+  transition: z-index .6s, visibility .6s, opacity .3s, transform .3s ease-in, -webkit-transform .3s ease-in;
+}
+
+.bal-warn p {
+  color: #c0c0c0;
+  font-family: 'Arial', cursive;
+  font-size: .875rem;
+  line-height: 18px;
+  text-align: center;
+}
+
+.bal-warn.bal-active {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+  z-index: 1;
+  -webkit-transition: z-index 0s, visibility 0s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index 0s, visibility 0s, opacity .3s, -webkit-transform .3s ease-in;
+  transition: z-index 0s, visibility 0s, opacity .3s, transform .3s ease-in;
+  transition: z-index 0s, visibility 0s, opacity .3s, transform .3s ease-in, -webkit-transform .3s ease-in;
+}
+
+@media only screen and (max-width: 992px) {
+  .bal-warn {
+    width: 100%;
+  }
+}
+
+.flatpickr-calendar {
+  background: #201F46;
+  font-family: "Poppins", sans-serif !important;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+      -ms-user-select: none !important;
+          user-select: none !important;
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+}
+
+.flatpickr-calendar *,
+.flatpickr-calendar *:hover,
+.flatpickr-calendar *:active,
+.flatpickr-calendar *:focus {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: none;
+}
+
+.flatpickr-calendar .flatpickr-monthSelect-month {
+  border-radius: 10px;
+  -webkit-transition: background-color .3s ease-in;
+  transition: background-color .3s ease-in;
+}
+
+.flatpickr-calendar .flatpickr-monthSelect-month.selected {
+  background: #302f69;
+}
+/*# sourceMappingURL=style.css.map */

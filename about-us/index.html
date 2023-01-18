@@ -1,0 +1,4184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    var _rollbarConfig = {
+      accessToken: "d257be441aa846668c40e65d192f467a",
+      captureUncaught: true,
+      captureUnhandledRejections: true,
+    };
+    // Rollbar Snippet
+    !function (r) { var e = {}; function o(n) { if (e[n]) return e[n].exports; var t = e[n] = { i: n, l: !1, exports: {} }; return r[n].call(t.exports, t, t.exports, o), t.l = !0, t.exports } o.m = r, o.c = e, o.d = function (r, e, n) { o.o(r, e) || Object.defineProperty(r, e, { enumerable: !0, get: n }) }, o.r = function (r) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(r, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(r, "__esModule", { value: !0 }) }, o.t = function (r, e) { if (1 & e && (r = o(r)), 8 & e) return r; if (4 & e && "object" == typeof r && r && r.__esModule) return r; var n = Object.create(null); if (o.r(n), Object.defineProperty(n, "default", { enumerable: !0, value: r }), 2 & e && "string" != typeof r) for (var t in r) o.d(n, t, function (e) { return r[e] }.bind(null, t)); return n }, o.n = function (r) { var e = r && r.__esModule ? function () { return r.default } : function () { return r }; return o.d(e, "a", e), e }, o.o = function (r, e) { return Object.prototype.hasOwnProperty.call(r, e) }, o.p = "", o(o.s = 0) }([function (r, e, o) { var n = o(1), t = o(4); _rollbarConfig = _rollbarConfig || {}, _rollbarConfig.rollbarJsUrl = _rollbarConfig.rollbarJsUrl || "https://cdnjs.cloudflare.com/ajax/libs/rollbar.js/2.14.4/rollbar.min.js", _rollbarConfig.async = void 0 === _rollbarConfig.async || _rollbarConfig.async; var a = n.setupShim(window, _rollbarConfig), l = t(_rollbarConfig); window.rollbar = n.Rollbar, a.loadFull(window, document, !_rollbarConfig.async, _rollbarConfig, l) }, function (r, e, o) { var n = o(2); function t(r) { return function () { try { return r.apply(this, arguments) } catch (r) { try { console.error("[Rollbar]: Internal error", r) } catch (r) { } } } } var a = 0; function l(r, e) { this.options = r, this._rollbarOldOnError = null; var o = a++; this.shimId = function () { return o }, "undefined" != typeof window && window._rollbarShims && (window._rollbarShims[o] = { handler: e, messages: [] }) } var i = o(3), s = function (r, e) { return new l(r, e) }, d = function (r) { return new i(s, r) }; function c(r) { return t(function () { var e = Array.prototype.slice.call(arguments, 0), o = { shim: this, method: r, args: e, ts: new Date }; window._rollbarShims[this.shimId()].messages.push(o) }) } l.prototype.loadFull = function (r, e, o, n, a) { var l = !1, i = e.createElement("script"), s = e.getElementsByTagName("script")[0], d = s.parentNode; i.crossOrigin = "", i.src = n.rollbarJsUrl, o || (i.async = !0), i.onload = i.onreadystatechange = t(function () { if (!(l || this.readyState && "loaded" !== this.readyState && "complete" !== this.readyState)) { i.onload = i.onreadystatechange = null; try { d.removeChild(i) } catch (r) { } l = !0, function () { var e; if (void 0 === r._rollbarDidLoad) { e = new Error("rollbar.js did not load"); for (var o, n, t, l, i = 0; o = r._rollbarShims[i++];)for (o = o.messages || []; n = o.shift();)for (t = n.args || [], i = 0; i < t.length; ++i)if ("function" == typeof (l = t[i])) { l(e); break } } "function" == typeof a && a(e) }() } }), d.insertBefore(i, s) }, l.prototype.wrap = function (r, e, o) { try { var n; if (n = "function" == typeof e ? e : function () { return e || {} }, "function" != typeof r) return r; if (r._isWrap) return r; if (!r._rollbar_wrapped && (r._rollbar_wrapped = function () { o && "function" == typeof o && o.apply(this, arguments); try { return r.apply(this, arguments) } catch (o) { var e = o; throw e && ("string" == typeof e && (e = new String(e)), e._rollbarContext = n() || {}, e._rollbarContext._wrappedSource = r.toString(), window._rollbarWrappedError = e), e } }, r._rollbar_wrapped._isWrap = !0, r.hasOwnProperty)) for (var t in r) r.hasOwnProperty(t) && (r._rollbar_wrapped[t] = r[t]); return r._rollbar_wrapped } catch (e) { return r } }; for (var p = "log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,captureEvent,captureDomContentLoaded,captureLoad".split(","), u = 0; u < p.length; ++u)l.prototype[p[u]] = c(p[u]); r.exports = { setupShim: function (r, e) { if (r) { var o = e.globalAlias || "Rollbar"; if ("object" == typeof r[o]) return r[o]; r._rollbarShims = {}, r._rollbarWrappedError = null; var a = new d(e); return t(function () { e.captureUncaught && (a._rollbarOldOnError = r.onerror, n.captureUncaughtExceptions(r, a, !0), e.wrapGlobalEventHandlers && n.wrapGlobals(r, a, !0)), e.captureUnhandledRejections && n.captureUnhandledRejections(r, a, !0); var t = e.autoInstrument; return !1 !== e.enabled && (void 0 === t || !0 === t || "object" == typeof t && t.network) && r.addEventListener && (r.addEventListener("load", a.captureLoad.bind(a)), r.addEventListener("DOMContentLoaded", a.captureDomContentLoaded.bind(a))), r[o] = a, a })() } }, Rollbar: d } }, function (r, e) { function o(r, e, o) { if (e.hasOwnProperty && e.hasOwnProperty("addEventListener")) { for (var n = e.addEventListener; n._rollbarOldAdd && n.belongsToShim;)n = n._rollbarOldAdd; var t = function (e, o, t) { n.call(this, e, r.wrap(o), t) }; t._rollbarOldAdd = n, t.belongsToShim = o, e.addEventListener = t; for (var a = e.removeEventListener; a._rollbarOldRemove && a.belongsToShim;)a = a._rollbarOldRemove; var l = function (r, e, o) { a.call(this, r, e && e._rollbar_wrapped || e, o) }; l._rollbarOldRemove = a, l.belongsToShim = o, e.removeEventListener = l } } r.exports = { captureUncaughtExceptions: function (r, e, o) { if (r) { var n; if ("function" == typeof e._rollbarOldOnError) n = e._rollbarOldOnError; else if (r.onerror) { for (n = r.onerror; n._rollbarOldOnError;)n = n._rollbarOldOnError; e._rollbarOldOnError = n } e.handleAnonymousErrors(); var t = function () { var o = Array.prototype.slice.call(arguments, 0); !function (r, e, o, n) { r._rollbarWrappedError && (n[4] || (n[4] = r._rollbarWrappedError), n[5] || (n[5] = r._rollbarWrappedError._rollbarContext), r._rollbarWrappedError = null); var t = e.handleUncaughtException.apply(e, n); o && o.apply(r, n), "anonymous" === t && (e.anonymousErrorsPending += 1) }(r, e, n, o) }; o && (t._rollbarOldOnError = n), r.onerror = t } }, captureUnhandledRejections: function (r, e, o) { if (r) { "function" == typeof r._rollbarURH && r._rollbarURH.belongsToShim && r.removeEventListener("unhandledrejection", r._rollbarURH); var n = function (r) { var o, n, t; try { o = r.reason } catch (r) { o = void 0 } try { n = r.promise } catch (r) { n = "[unhandledrejection] error getting `promise` from event" } try { t = r.detail, !o && t && (o = t.reason, n = t.promise) } catch (r) { } o || (o = "[unhandledrejection] error getting `reason` from event"), e && e.handleUnhandledRejection && e.handleUnhandledRejection(o, n) }; n.belongsToShim = o, r._rollbarURH = n, r.addEventListener("unhandledrejection", n) } }, wrapGlobals: function (r, e, n) { if (r) { var t, a, l = "EventTarget,Window,Node,ApplicationCache,AudioTrackList,ChannelMergerNode,CryptoOperation,EventSource,FileReader,HTMLUnknownElement,IDBDatabase,IDBRequest,IDBTransaction,KeyOperation,MediaController,MessagePort,ModalWindow,Notification,SVGElementInstance,Screen,TextTrack,TextTrackCue,TextTrackList,WebSocket,WebSocketWorker,Worker,XMLHttpRequest,XMLHttpRequestEventTarget,XMLHttpRequestUpload".split(","); for (t = 0; t < l.length; ++t)r[a = l[t]] && r[a].prototype && o(e, r[a].prototype, n) } } } }, function (r, e) { function o(r, e) { this.impl = r(e, this), this.options = e, function (r) { for (var e = function (r) { return function () { var e = Array.prototype.slice.call(arguments, 0); if (this.impl[r]) return this.impl[r].apply(this.impl, e) } }, o = "log,debug,info,warn,warning,error,critical,global,configure,handleUncaughtException,handleAnonymousErrors,handleUnhandledRejection,_createItem,wrap,loadFull,shimId,captureEvent,captureDomContentLoaded,captureLoad".split(","), n = 0; n < o.length; n++)r[o[n]] = e(o[n]) }(o.prototype) } o.prototype._swapAndProcessMessages = function (r, e) { var o, n, t; for (this.impl = r(this.options); o = e.shift();)n = o.method, t = o.args, this[n] && "function" == typeof this[n] && ("captureDomContentLoaded" === n || "captureLoad" === n ? this[n].apply(this, [t[0], o.ts]) : this[n].apply(this, t)); return this }, r.exports = o }, function (r, e) { r.exports = function (r) { return function (e) { if (!e && !window._rollbarInitialized) { for (var o, n, t = (r = r || {}).globalAlias || "Rollbar", a = window.rollbar, l = function (r) { return new a(r) }, i = 0; o = window._rollbarShims[i++];)n || (n = o.handler), o.handler._swapAndProcessMessages(l, o.messages); window[t] = n, window._rollbarInitialized = !0 } } } }]);
+      // End Rollbar Snippet
+  </script>
+  <meta name="viewport" content="width=device-width">
+  <title>About Us - Haru Invest</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Haru Invest">
+  <meta property="og:title" content="About Us - Haru Invest">
+  <meta name="description"
+    content="No matter how much you own, you deserve the best piece of digital asset investment. Learn more about us.">
+  <meta name="og:description"
+    content="No matter how much you own, you deserve the best piece of digital asset investment. Learn more about us.">
+  <meta name="keywords" content="haru invest, harubank, haruinvest">
+  <meta property="og:url" content="https://haruinvest.com/about-us">
+  <link rel="canonical" href="https://haruinvest.com/about-us">
+  <meta property="og:image" content="images/haru_app_download_og_image.png">
+  <link rel="icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
+  <meta name="google-site-verification" content="HCXge8ZeXkYGUQauE6i6Kf6FqGyNCVfpbfXBu2qNf1E">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="facebook-domain-verification" content="7yiyp6zj4twhr8hkumxoi5e7850h0k">
+  <meta name="naver-site-verification" content="9f17987216294f7ef5d9da6f1dd6524414422f3b">
+  <meta name="msvalidate.01" content="5693F954F3A3D970CB49606F45D23E3D">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <script src="js/optimize.js"></script>
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-PBMRRQF');
+  </script>
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'seoDataLayer', 'GTM-NVDBG9N');</script>
+  <script type="text/javascript" src="js/onelink-smart-script-v2.0.1.js"></script>
+  <script type="text/javascript" src="js/tp.widget.bootstrap.min.js" async=""></script>
+  <meta name="next-head-count" content="28">
+  <link rel="preload" href="/_next/static/css/a138ffd805b805ef.css" as="style">
+  <link rel="stylesheet" href="css/a138ffd805b805ef.css" data-n-g=""><noscript data-n-css=""></noscript>
+  <script defer="" nomodule="" src="js/polyfills-5cd94c89d3acac5f.js"></script>
+  <!-- <script src="js/webpack-ebe0f582729c4663.js" defer=""></script> -->
+  <script src="js/framework-680414d53ef86b48.js" defer=""></script>
+  <!-- <script src="js/main-6f0305abd72394bc.js" defer=""></script> -->
+  <script src="js/_app-e9af0cd26fe073f2.js" defer=""></script>
+  <script src="js/about-us-bc958c2f36821800.js" defer=""></script>
+  <script src="js/_buildManifest.js" defer=""></script>
+  <script src="js/_ssgManifest.js" defer=""></script>
+  <script src="js/_middlewareManifest.js" defer=""></script>
+  <style id="jss-server-side">
+    .MuiButtonBase-root {
+      color: inherit;
+      border: 0;
+      cursor: pointer;
+      margin: 0;
+      display: inline-flex;
+      outline: 0;
+      padding: 0;
+      position: relative;
+      align-items: center;
+      user-select: none;
+      border-radius: 0;
+      vertical-align: middle;
+      -moz-appearance: none;
+      justify-content: center;
+      text-decoration: none;
+      background-color: transparent;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .MuiButtonBase-root::-moz-focus-inner {
+      border-style: none;
+    }
+
+    .MuiButtonBase-root.Mui-disabled {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    @media print {
+      .MuiButtonBase-root {
+        color-adjust: exact;
+      }
+    }
+
+    .MuiButton-root {
+      color: rgba(0, 0, 0, 0.87);
+      padding: 6px 16px;
+      font-size: 0.875rem;
+      min-width: 64px;
+      box-sizing: border-box;
+      transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 500;
+      line-height: 1.75;
+      border-radius: 4px;
+      letter-spacing: 0.02857em;
+      text-transform: uppercase;
+    }
+
+    .MuiButton-root:hover {
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .MuiButton-root.Mui-disabled {
+      color: rgba(0, 0, 0, 0.26);
+    }
+
+    @media (hover: none) {
+      .MuiButton-root:hover {
+        background-color: transparent;
+      }
+    }
+
+    .MuiButton-root:hover.Mui-disabled {
+      background-color: transparent;
+    }
+
+    .MuiButton-label {
+      width: 100%;
+      display: inherit;
+      align-items: inherit;
+      justify-content: inherit;
+    }
+
+    .MuiButton-text {
+      padding: 6px 8px;
+    }
+
+    .MuiButton-textPrimary {
+      color: #3f51b5;
+    }
+
+    .MuiButton-textPrimary:hover {
+      background-color: rgba(63, 81, 181, 0.04);
+    }
+
+    @media (hover: none) {
+      .MuiButton-textPrimary:hover {
+        background-color: transparent;
+      }
+    }
+
+    .MuiButton-textSecondary {
+      color: #f50057;
+    }
+
+    .MuiButton-textSecondary:hover {
+      background-color: rgba(245, 0, 87, 0.04);
+    }
+
+    @media (hover: none) {
+      .MuiButton-textSecondary:hover {
+        background-color: transparent;
+      }
+    }
+
+    .MuiButton-outlined {
+      border: 1px solid rgba(0, 0, 0, 0.23);
+      padding: 5px 15px;
+    }
+
+    .MuiButton-outlined.Mui-disabled {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .MuiButton-outlinedPrimary {
+      color: #3f51b5;
+      border: 1px solid rgba(63, 81, 181, 0.5);
+    }
+
+    .MuiButton-outlinedPrimary:hover {
+      border: 1px solid #3f51b5;
+      background-color: rgba(63, 81, 181, 0.04);
+    }
+
+    @media (hover: none) {
+      .MuiButton-outlinedPrimary:hover {
+        background-color: transparent;
+      }
+    }
+
+    .MuiButton-outlinedSecondary {
+      color: #f50057;
+      border: 1px solid rgba(245, 0, 87, 0.5);
+    }
+
+    .MuiButton-outlinedSecondary:hover {
+      border: 1px solid #f50057;
+      background-color: rgba(245, 0, 87, 0.04);
+    }
+
+    .MuiButton-outlinedSecondary.Mui-disabled {
+      border: 1px solid rgba(0, 0, 0, 0.26);
+    }
+
+    @media (hover: none) {
+      .MuiButton-outlinedSecondary:hover {
+        background-color: transparent;
+      }
+    }
+
+    .MuiButton-contained {
+      color: rgba(0, 0, 0, 0.87);
+      box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+      background-color: #e0e0e0;
+    }
+
+    .MuiButton-contained:hover {
+      box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+      background-color: #d5d5d5;
+    }
+
+    .MuiButton-contained.Mui-focusVisible {
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .MuiButton-contained:active {
+      box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .MuiButton-contained.Mui-disabled {
+      color: rgba(0, 0, 0, 0.26);
+      box-shadow: none;
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+
+    @media (hover: none) {
+      .MuiButton-contained:hover {
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+        background-color: #e0e0e0;
+      }
+    }
+
+    .MuiButton-contained:hover.Mui-disabled {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+
+    .MuiButton-containedPrimary {
+      color: #fff;
+      background-color: #3f51b5;
+    }
+
+    .MuiButton-containedPrimary:hover {
+      background-color: #303f9f;
+    }
+
+    @media (hover: none) {
+      .MuiButton-containedPrimary:hover {
+        background-color: #3f51b5;
+      }
+    }
+
+    .MuiButton-containedSecondary {
+      color: #fff;
+      background-color: #f50057;
+    }
+
+    .MuiButton-containedSecondary:hover {
+      background-color: #c51162;
+    }
+
+    @media (hover: none) {
+      .MuiButton-containedSecondary:hover {
+        background-color: #f50057;
+      }
+    }
+
+    .MuiButton-disableElevation {
+      box-shadow: none;
+    }
+
+    .MuiButton-disableElevation:hover {
+      box-shadow: none;
+    }
+
+    .MuiButton-disableElevation.Mui-focusVisible {
+      box-shadow: none;
+    }
+
+    .MuiButton-disableElevation:active {
+      box-shadow: none;
+    }
+
+    .MuiButton-disableElevation.Mui-disabled {
+      box-shadow: none;
+    }
+
+    .MuiButton-colorInherit {
+      color: inherit;
+      border-color: currentColor;
+    }
+
+    .MuiButton-textSizeSmall {
+      padding: 4px 5px;
+      font-size: 0.8125rem;
+    }
+
+    .MuiButton-textSizeLarge {
+      padding: 8px 11px;
+      font-size: 0.9375rem;
+    }
+
+    .MuiButton-outlinedSizeSmall {
+      padding: 3px 9px;
+      font-size: 0.8125rem;
+    }
+
+    .MuiButton-outlinedSizeLarge {
+      padding: 7px 21px;
+      font-size: 0.9375rem;
+    }
+
+    .MuiButton-containedSizeSmall {
+      padding: 4px 10px;
+      font-size: 0.8125rem;
+    }
+
+    .MuiButton-containedSizeLarge {
+      padding: 8px 22px;
+      font-size: 0.9375rem;
+    }
+
+    .MuiButton-fullWidth {
+      width: 100%;
+    }
+
+    .MuiButton-startIcon {
+      display: inherit;
+      margin-left: -4px;
+      margin-right: 8px;
+    }
+
+    .MuiButton-startIcon.MuiButton-iconSizeSmall {
+      margin-left: -2px;
+    }
+
+    .MuiButton-endIcon {
+      display: inherit;
+      margin-left: 8px;
+      margin-right: -4px;
+    }
+
+    .MuiButton-endIcon.MuiButton-iconSizeSmall {
+      margin-right: -2px;
+    }
+
+    .MuiButton-iconSizeSmall>*:first-child {
+      font-size: 18px;
+    }
+
+    .MuiButton-iconSizeMedium>*:first-child {
+      font-size: 20px;
+    }
+
+    .MuiButton-iconSizeLarge>*:first-child {
+      font-size: 22px;
+    }
+
+    @media print {
+      .MuiDialog-root {
+        position: absolute !important;
+      }
+    }
+
+    .MuiDialog-scrollPaper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .MuiDialog-scrollBody {
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .MuiDialog-scrollBody:after {
+      width: 0;
+      height: 100%;
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .MuiDialog-container {
+      height: 100%;
+      outline: 0;
+    }
+
+    @media print {
+      .MuiDialog-container {
+        height: auto;
+      }
+    }
+
+    .MuiDialog-paper {
+      margin: 32px;
+      position: relative;
+      overflow-y: auto;
+    }
+
+    @media print {
+      .MuiDialog-paper {
+        box-shadow: none;
+        overflow-y: visible;
+      }
+    }
+
+    .MuiDialog-paperScrollPaper {
+      display: flex;
+      max-height: calc(100% - 64px);
+      flex-direction: column;
+    }
+
+    .MuiDialog-paperScrollBody {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .MuiDialog-paperWidthFalse {
+      max-width: calc(100% - 64px);
+    }
+
+    .MuiDialog-paperWidthXs {
+      max-width: 444px;
+    }
+
+    @media (max-width:507.95px) {
+      .MuiDialog-paperWidthXs.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthSm {
+      max-width: 600px;
+    }
+
+    @media (max-width:663.95px) {
+      .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthMd {
+      max-width: 960px;
+    }
+
+    @media (max-width:1023.95px) {
+      .MuiDialog-paperWidthMd.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthLg {
+      max-width: 1280px;
+    }
+
+    @media (max-width:1343.95px) {
+      .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperWidthXl {
+      max-width: 1920px;
+    }
+
+    @media (max-width:1983.95px) {
+      .MuiDialog-paperWidthXl.MuiDialog-paperScrollBody {
+        max-width: calc(100% - 64px);
+      }
+    }
+
+    .MuiDialog-paperFullWidth {
+      width: calc(100% - 64px);
+    }
+
+    .MuiDialog-paperFullScreen {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      max-width: 100%;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    .MuiDialog-paperFullScreen.MuiDialog-paperScrollBody {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .jss15 {
+      width: 60px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      height: 60px;
+      background: white;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
+      border-radius: 24px;
+    }
+
+    .jss15:hover {
+      background: white;
+    }
+
+    .jss15:active {
+      background: white;
+    }
+
+    .jss1 {
+      color: #242631;
+      display: inline-block;
+      padding: 8px 20px;
+      min-width: 144px;
+      box-sizing: border-box;
+      font-family: FFMarkWebPro, sans-serif;
+      line-height: 24px;
+      border-radius: 8px;
+      text-transform: none;
+    }
+
+    .jss2 {
+      font-size: 15px;
+      font-family: inherit;
+      font-weight: bold;
+      letter-spacing: 0.33px;
+    }
+
+    .jss3 {
+      padding: 18px 32px;
+      font-size: 18px;
+      line-height: 24px;
+      border-radius: 10px;
+    }
+
+    @media (min-width:768px) and (max-width:1127.95px) {
+      .jss3 {
+        padding: 12px 32px;
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width:0px) and (max-width:767.95px) {
+      .jss3 {
+        padding: 10px 32px;
+        font-size: 15px;
+      }
+    }
+
+    .jss4 {
+      padding: 8px 24px;
+      font-size: 15px;
+      line-height: 24px;
+      border-radius: 8px;
+      letter-spacing: 0.33px;
+    }
+
+    .jss6 {
+      color: #ffffff;
+      box-shadow: none;
+      background-color: #5A41F5;
+    }
+
+    .jss6:hover {
+      background: #9C8DF9;
+      box-shadow: none;
+    }
+
+    .jss6:active {
+      color: #C4C9FA;
+      background: #3F23EB;
+    }
+
+    .jss7 {
+      color: #ffffff;
+      box-shadow: none;
+      background-color: #5A41F5;
+    }
+
+    .jss7:hover {
+      background: #9C8DF9;
+      box-shadow: none;
+    }
+
+    .jss7:active {
+      color: #C4C9FA;
+      background: #3F23EB;
+    }
+
+    .jss8 {
+      color: #ffffff;
+      box-shadow: none;
+      background-color: #5A41F5;
+    }
+
+    .jss8:hover {
+      background: #9C8DF9;
+      box-shadow: none;
+    }
+
+    .jss8:active {
+      color: #C4C9FA;
+      background: #3F23EB;
+    }
+
+    .jss10 {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .jss9 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .jss11 {
+      z-index: 5000 !important;
+    }
+
+    .jss12 {
+      max-width: 640px;
+      border-radius: 12px;
+    }
+
+    .jss13 {
+      z-index: 10000000 !important;
+    }
+
+    .jss14 {
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 12px 12px 0px 0px;
+    }
+  </style>
+  <style data-styled="" data-styled-version="5.3.3">
+    .gpWAyr {
+      z-index: CRM_BUTTON_Z_INDEX;
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+      right: 24px !important;
+    }
+
+    /*!sc*/
+    data-styled.g1[id="CRMButton__Wrapper-sc-1po6dry-0"] {
+      content: "gpWAyr,"
+    }
+
+    /*!sc*/
+    .fRolBO {
+      width: 100%;
+      max-width: 1128px;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1178px) {
+      .fRolBO {
+        padding: 0;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .fRolBO {
+        padding: 0 48px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .fRolBO {
+        padding: 0 16px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g2[id="CenterWrapper-sc-pvsxhf-0"] {
+      content: "fRolBO,"
+    }
+
+    /*!sc*/
+    .khGTHP {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /*!sc*/
+    .khGTHP:hover {
+      color: #5233D4;
+    }
+
+    /*!sc*/
+    .fjRdaP {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /*!sc*/
+    data-styled.g9[id="HaruLink__LinkWrapper-sc-bk2kri-0"] {
+      content: "khGTHP,fjRdaP,"
+    }
+
+    /*!sc*/
+    .jxunbK {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      padding: 48px 0;
+      background: #ffffff;
+      border-top: 1px solid #EAECEE;
+      box-shadow: 0 8px 12px rgba(23, 31, 70, 0.3);
+      box-sizing: border-box;
+      -webkit-transition: opacity, 0.2s;
+      transition: opacity, 0.2s;
+      visibility: hidden;
+      opacity: unset;
+    }
+
+    /*!sc*/
+    data-styled.g45[id="LanguageList__Wrapper-sc-ihcfu5-0"] {
+      content: "jxunbK,"
+    }
+
+    /*!sc*/
+    .dxaAMU {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    /*!sc*/
+    data-styled.g46[id="LanguageList__TitleWrapper-sc-ihcfu5-1"] {
+      content: "dxaAMU,"
+    }
+
+    /*!sc*/
+    .cwiHqz {
+      line-height: 32px;
+      color: #242631;
+      font-weight: bold;
+      font-size: 32px;
+    }
+
+    /*!sc*/
+    data-styled.g47[id="LanguageList__Title-sc-ihcfu5-2"] {
+      content: "cwiHqz,"
+    }
+
+    /*!sc*/
+    .cvQNTO {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    /*!sc*/
+    data-styled.g48[id="LanguageList__CopyrightWrapper-sc-ihcfu5-3"] {
+      content: "cvQNTO,"
+    }
+
+    /*!sc*/
+    .HFhbE {
+      line-height: 18px;
+      color: #73757D;
+      font-weight: normal;
+      font-size: 13px;
+    }
+
+    /*!sc*/
+    data-styled.g49[id="LanguageList__Copyright-sc-ihcfu5-4"] {
+      content: "HFhbE,"
+    }
+
+    /*!sc*/
+    .bZuDHa {
+      height: 16px;
+      margin-left: 6px;
+    }
+
+    /*!sc*/
+    data-styled.g50[id="LanguageList__CopyrightLogo-sc-ihcfu5-5"] {
+      content: "bZuDHa,"
+    }
+
+    /*!sc*/
+    .hCpFIW {
+      display: inline-block;
+      width: 168px;
+      line-height: 24px;
+      padding: 12px 10px;
+      margin-right: 20px;
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      color: #73757D;
+      font-weight: normal;
+      font-size: 18px;
+      box-sizing: border-box;
+      cursor: pointer;
+      color: #5A41F5;
+      font-weight: bold;
+      background: #ffffff url("images/language-button--active-arrow.png") no-repeat right 24px center;
+      border-color: #5A41F5;
+    }
+
+    /*!sc*/
+    .gtPdFe {
+      display: inline-block;
+      width: 168px;
+      line-height: 24px;
+      padding: 12px 10px;
+      margin-right: 20px;
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      color: #73757D;
+      font-weight: normal;
+      font-size: 18px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    /*!sc*/
+    .gtPdFe:hover {
+      background: #F7F8FF;
+      border-color: #F7F8FF;
+    }
+
+    /*!sc*/
+    data-styled.g52[id="LanguageList__ListItem-sc-ihcfu5-7"] {
+      content: "hCpFIW,gtPdFe,"
+    }
+
+    /*!sc*/
+    .fIBmdv {
+      display: inline-block;
+      min-width: 360px;
+      max-width: 360px;
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      -webkit-flex-basis: 0;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+    }
+
+    /*!sc*/
+    data-styled.g53[id="ListSubNavbarItem__Wrapper-sc-mezdjv-0"] {
+      content: "fIBmdv,"
+    }
+
+    /*!sc*/
+    .kFnKgJ {
+      box-sizing: border-box;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-align-items: flex-start;
+      -webkit-box-align: flex-start;
+      -ms-flex-align: flex-start;
+      align-items: flex-start;
+      padding: 24px 20px;
+      gap: 12px;
+      height: 76px;
+      border: 1px solid #EAECEE;
+      border-radius: 8px;
+      color: #242631;
+    }
+
+    /*!sc*/
+    .kFnKgJ:hover {
+      background: #EEF0FD;
+      color: #5A41F5;
+    }
+
+    /*!sc*/
+    .kFnKgJ:hover path {
+      fill: #5A41F5;
+    }
+
+    /*!sc*/
+    data-styled.g54[id="ListSubNavbarItem__NaviItem-sc-mezdjv-1"] {
+      content: "kFnKgJ,"
+    }
+
+    /*!sc*/
+    .iQGoei {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      gap: 8px;
+      height: 28px;
+      width: 100%;
+    }
+
+    /*!sc*/
+    data-styled.g55[id="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2"] {
+      content: "iQGoei,"
+    }
+
+    /*!sc*/
+    .kVYwYb {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    /*!sc*/
+    data-styled.g56[id="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3"] {
+      content: "kVYwYb,"
+    }
+
+    /*!sc*/
+    .lbjfQV {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      padding: 48px 0;
+      background: #ffffff;
+      border-top: 1px solid #EAECEE;
+      box-shadow: rgb(23 31 70 / 5%) 0px 10px 28px;
+      box-sizing: border-box;
+      -webkit-transition: opacity, 0.2s;
+      transition: opacity, 0.2s;
+      visibility: hidden;
+      opacity: unset;
+    }
+
+    /*!sc*/
+    data-styled.g57[id="ListSubNavbar__SubNavWrapper-sc-1e270en-0"] {
+      content: "lbjfQV,"
+    }
+
+    /*!sc*/
+    .hskcgx {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    /*!sc*/
+    data-styled.g58[id="ListSubNavbar__SubNavbarBox-sc-1e270en-1"] {
+      content: "hskcgx,"
+    }
+
+    /*!sc*/
+    .dMhnZJ {
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 100%;
+      padding: 48px 0;
+      background: #ffffff;
+      border-top: 1px solid #EAECEE;
+      box-shadow: rgb(23 31 70 / 5%) 0px 10px 28px;
+      box-sizing: border-box;
+      -webkit-transition: opacity, 0.2s;
+      transition: opacity, 0.2s;
+      visibility: hidden;
+      opacity: unset;
+    }
+
+    /*!sc*/
+    data-styled.g59[id="SubNavbar__SubNavWrapper-sc-r7qi2o-0"] {
+      content: "dMhnZJ,"
+    }
+
+    /*!sc*/
+    .jiMFcv {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    /*!sc*/
+    data-styled.g60[id="SubNavbar__SubNavbarBox-sc-r7qi2o-1"] {
+      content: "jiMFcv,"
+    }
+
+    /*!sc*/
+    .hTFODS {
+      width: 350px;
+    }
+
+    /*!sc*/
+    data-styled.g61[id="SubNavbar__ContentWrapper-sc-r7qi2o-2"] {
+      content: "hTFODS,"
+    }
+
+    /*!sc*/
+    .iJqaYN {
+      line-height: 32px;
+      margin-bottom: 12px;
+      color: #242631;
+      font-weight: bold;
+      font-size: 32px;
+    }
+
+    /*!sc*/
+    data-styled.g62[id="SubNavbar__ContentTitle-sc-r7qi2o-3"] {
+      content: "iJqaYN,"
+    }
+
+    /*!sc*/
+    .fha-dpD {
+      line-height: 28px;
+      margin-bottom: 24px;
+      font-size: 18px;
+      color: #242631;
+      font-weight: 400;
+    }
+
+    /*!sc*/
+    data-styled.g63[id="SubNavbar__ContentDescription-sc-r7qi2o-4"] {
+      content: "fha-dpD,"
+    }
+
+    /*!sc*/
+    .eusaqo {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    /*!sc*/
+    data-styled.g64[id="SubNavbar__ContentLinkWrapper-sc-r7qi2o-5"] {
+      content: "eusaqo,"
+    }
+
+    /*!sc*/
+    .eQGjTX {
+      margin-right: 12px;
+      color: #5A41F5;
+      font-weight: bold;
+      font-size: 16px;
+      vertical-align: middle;
+    }
+
+    /*!sc*/
+    data-styled.g66[id="SubNavbar__LinkLabel-sc-r7qi2o-7"] {
+      content: "eQGjTX,"
+    }
+
+    /*!sc*/
+    .ieudcp {
+      display: inline-block;
+      height: 16px;
+      vertical-align: middle;
+    }
+
+    /*!sc*/
+    data-styled.g67[id="SubNavbar__LinkImage-sc-r7qi2o-8"] {
+      content: "ieudcp,"
+    }
+
+    /*!sc*/
+    .dhRKzJ {
+      display: inline-block;
+    }
+
+    /*!sc*/
+    data-styled.g69[id="SubNavbarProductItem__ProductItem-sc-1n97xqh-0"] {
+      content: "dhRKzJ,"
+    }
+
+    /*!sc*/
+    .kLuqNJ {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    /*!sc*/
+    data-styled.g70[id="SubNavbarProductItem__ProductTitleWrapper-sc-1n97xqh-1"] {
+      content: "kLuqNJ,"
+    }
+
+    /*!sc*/
+    .LDOdC {
+      line-height: 28px;
+      color: #242631;
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    /*!sc*/
+    data-styled.g71[id="SubNavbarProductItem__ProductTitle-sc-1n97xqh-2"] {
+      content: "LDOdC,"
+    }
+
+    /*!sc*/
+    .jBRnOr {
+      height: 16px;
+    }
+
+    /*!sc*/
+    data-styled.g72[id="SubNavbarProductItem__ProductTitleImage-sc-1n97xqh-3"] {
+      content: "jBRnOr,"
+    }
+
+    /*!sc*/
+    .deTgAl {
+      line-height: 24px;
+      margin-bottom: 40px;
+      color: #7B7BF3;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /*!sc*/
+    data-styled.g73[id="SubNavbarProductItem__ProductDescription-sc-1n97xqh-4"] {
+      content: "deTgAl,"
+    }
+
+    /*!sc*/
+    .hIHVIF {
+      display: inline-block;
+      padding: 4px 8px;
+      line-height: 18px;
+      background: #7B7BF3;
+      border-radius: 6px;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 11px;
+    }
+
+    /*!sc*/
+    data-styled.g74[id="SubNavbarProductItem__ProductType-sc-1n97xqh-5"] {
+      content: "hIHVIF,"
+    }
+
+    /*!sc*/
+    .eTShgO {
+      width: 264px;
+      padding: 24px 20px;
+      border-radius: 16px;
+      box-sizing: border-box;
+      border: 1px solid #EAECEE;
+      margin-left: 0px;
+    }
+
+    /*!sc*/
+    .eTShgO:hover {
+      background: #EEF0FD;
+    }
+
+    /*!sc*/
+    .eTShgO:hover .SubNavbarProductItem__ProductTitle-sc-1n97xqh-2 {
+      color: #5A41F5;
+    }
+
+    /*!sc*/
+    .eTShgO:hover path {
+      fill: #5A41F5;
+    }
+
+    /*!sc*/
+    .gpMOdk {
+      width: 264px;
+      padding: 24px 20px;
+      border-radius: 16px;
+      box-sizing: border-box;
+      border: 1px solid #EAECEE;
+      margin-left: 24px;
+    }
+
+    /*!sc*/
+    .gpMOdk:hover {
+      background: #EEF0FD;
+    }
+
+    /*!sc*/
+    .gpMOdk:hover .SubNavbarProductItem__ProductTitle-sc-1n97xqh-2 {
+      color: #5A41F5;
+    }
+
+    /*!sc*/
+    .gpMOdk:hover path {
+      fill: #5A41F5;
+    }
+
+    /*!sc*/
+    data-styled.g75[id="SubNavbarProductItem__Product-sc-1n97xqh-6"] {
+      content: "eTShgO,gpMOdk,"
+    }
+
+    /*!sc*/
+    .klOvr {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      width: 100%;
+      background: #ffffff;
+      font-weight: bold;
+      -webkit-transition: all 0.3s;
+      transition: all 0.3s;
+      background: none;
+    }
+
+    /*!sc*/
+    data-styled.g84[id="Navbar__Wrapper-sc-9bk630-0"] {
+      content: "klOvr,"
+    }
+
+    /*!sc*/
+    .ipNLsG {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      height: 80px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .ipNLsG {
+        height: 60px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g86[id="Navbar__NavbarWrapper-sc-9bk630-2"] {
+      content: "ipNLsG,"
+    }
+
+    /*!sc*/
+    .eZIduD {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    /*!sc*/
+    data-styled.g87[id="Navbar__BoxWrapper-sc-9bk630-3"] {
+      content: "eZIduD,"
+    }
+
+    /*!sc*/
+    .frdPAX {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    /*!sc*/
+    data-styled.g88[id="Navbar__NavbarBox-sc-9bk630-4"] {
+      content: "frdPAX,"
+    }
+
+    /*!sc*/
+    .eHiwMn {
+      height: 36px;
+    }
+
+    /*!sc*/
+    data-styled.g89[id="Navbar__NavbarLogo-sc-9bk630-5"] {
+      content: "eHiwMn,"
+    }
+
+    /*!sc*/
+    .isULWC {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      padding-left: 72px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .isULWC {
+        display: none;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g90[id="Navbar__NavList-sc-9bk630-6"] {
+      content: "isULWC,"
+    }
+
+    /*!sc*/
+    .jPmdlx {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      margin-right: 54px;
+    }
+
+    /*!sc*/
+    data-styled.g92[id="Navbar__NavItem-sc-9bk630-8"] {
+      content: "jPmdlx,"
+    }
+
+    /*!sc*/
+    .izYSNg>a {
+      display: block;
+      line-height: 80px;
+      color: #242631;
+      position: relative;
+      color: #ffffff;
+    }
+
+    /*!sc*/
+    .izYSNg>a:hover::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background: #5A41F5;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .izYSNg>a {
+        height: 60px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g94[id="Navbar__HaruLinkItem-sc-9bk630-10"] {
+      content: "izYSNg,"
+    }
+
+    /*!sc*/
+    .gWDFYd {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gWDFYd {
+        display: none;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g95[id="Navbar__UtilBox-sc-9bk630-11"] {
+      content: "gWDFYd,"
+    }
+
+    /*!sc*/
+    .dQhTmF {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding-right: 16px;
+      margin-right: -8px;
+    }
+
+    /*!sc*/
+    data-styled.g96[id="Navbar__LanguageWrapper-sc-9bk630-12"] {
+      content: "dQhTmF,"
+    }
+
+    /*!sc*/
+    .kbboDf {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      height: 80px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /*!sc*/
+    .kbboDf:hover::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background: #5A41F5;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .kbboDf {
+        height: 60px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g97[id="Navbar__LanguageItem-sc-9bk630-13"] {
+      content: "kbboDf,"
+    }
+
+    /*!sc*/
+    .PiTJb {
+      height: 18px;
+      margin-right: 8px;
+    }
+
+    /*!sc*/
+    .PiTJb path {
+      fill: #ffffff;
+    }
+
+    /*!sc*/
+    data-styled.g98[id="Navbar__LanguageIcon-sc-9bk630-14"] {
+      content: "PiTJb,"
+    }
+
+    /*!sc*/
+    .hWdGS {
+      color: #242631;
+      color: #ffffff;
+    }
+
+    /*!sc*/
+    data-styled.g99[id="Navbar__LanguageLabel-sc-9bk630-15"] {
+      content: "hWdGS,"
+    }
+
+    /*!sc*/
+    .eToXhM {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    /*!sc*/
+    data-styled.g100[id="Navbar__ButtonWrapper-sc-9bk630-16"] {
+      content: "eToXhM,"
+    }
+
+    /*!sc*/
+    .dhAeG {
+      margin-left: 8px;
+      background: #ffffff;
+      border-radius: 8px;
+    }
+
+    /*!sc*/
+    .lmZUUC {
+      margin-left: 8px;
+    }
+
+    /*!sc*/
+    data-styled.g101[id="Navbar__ButtonBox-sc-9bk630-17"] {
+      content: "dhAeG,lmZUUC,"
+    }
+
+    /*!sc*/
+    .ifxYAJ {
+      display: none;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .ifxYAJ {
+        display: block;
+        height: 24px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g102[id="Navbar__MenuBox-sc-9bk630-18"] {
+      content: "ifxYAJ,"
+    }
+
+    /*!sc*/
+    .kvZQAx {
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /*!sc*/
+    .kvZQAx>svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /*!sc*/
+    .kvZQAx>svg path {
+      fill: #ffffff;
+    }
+
+    /*!sc*/
+    data-styled.g103[id="Navbar__MenuButton-sc-9bk630-19"] {
+      content: "kvZQAx,"
+    }
+
+    /*!sc*/
+    .dPHqYd {
+      width: 96px;
+      height: 32px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      border-radius: 4px;
+      background: white;
+      -webkit-transition: background-color 0.3s;
+      transition: background-color 0.3s;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /*!sc*/
+    .dPHqYd:hover,
+    .dPHqYd.active {
+      background: rgba(126, 133, 142, 0.04);
+    }
+
+    /*!sc*/
+    .dPHqYd img {
+      margin-right: 8px;
+    }
+
+    /*!sc*/
+    data-styled.g149[id="SelectedLanguage__SelectorButton-sc-1cxq7my-0"] {
+      content: "dPHqYd,"
+    }
+
+    /*!sc*/
+    .fQEMPt {
+      position: relative;
+      color: #171f46;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /*!sc*/
+    data-styled.g150[id="SelectedLanguage__Wrapper-sc-1cxq7my-1"] {
+      content: "fQEMPt,"
+    }
+
+    /*!sc*/
+    .isZMNA .CenterWrapper-sc-pvsxhf-0 {
+      padding: 64px 0 80px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .isZMNA .CenterWrapper-sc-pvsxhf-0 {
+        padding: 64px 48px 80px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .isZMNA .CenterWrapper-sc-pvsxhf-0 {
+        padding: 64px 16px 80px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g151[id="SiteFooter__FooterWrapper-sc-2nu22f-0"] {
+      content: "isZMNA,"
+    }
+
+    /*!sc*/
+    .gRxmbn {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gRxmbn {
+        margin-bottom: 32px;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-align-items: flex-start;
+        -webkit-box-align: flex-start;
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g152[id="SiteFooter__HeadWrapper-sc-2nu22f-1"] {
+      content: "gRxmbn,"
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .fjVKL {
+        margin-bottom: 32px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g153[id="SiteFooter__LogoWrapper-sc-2nu22f-2"] {
+      content: "fjVKL,"
+    }
+
+    /*!sc*/
+    .fqilfh {
+      display: none;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .fqilfh {
+        display: block;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        text-transform: capitalize;
+        color: #191B23;
+        margin-bottom: 12px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g154[id="SiteFooter__SocialTitle-sc-2nu22f-3"] {
+      content: "fqilfh,"
+    }
+
+    /*!sc*/
+    .erelFs {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      -webkit-flex-basis: 0;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      padding: 0 48px;
+      margin-left: 272px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .erelFs {
+        width: 100%;
+        padding: unset;
+        margin-left: unset;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .erelFs {
+        width: unset;
+        gap: 16px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g155[id="SiteFooter__SocialList-sc-2nu22f-4"] {
+      content: "erelFs,"
+    }
+
+    /*!sc*/
+    .hmaSpU {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 24px;
+      color: #242631;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .hmaSpU {
+        display: none;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g156[id="SiteFooter__SocialText-sc-2nu22f-5"] {
+      content: "hmaSpU,"
+    }
+
+    /*!sc*/
+    .eVAZMP a {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-text-decoration: none;
+      text-decoration: none;
+      gap: 8px;
+    }
+
+    /*!sc*/
+    .eVAZMP a:hover path {
+      fill: #5A41F5;
+    }
+
+    /*!sc*/
+    .eVAZMP a:hover .SiteFooter__SocialText-sc-2nu22f-5 {
+      color: #5A41F5;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .eVAZMP a svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g157[id="SiteFooter__SocialItem-sc-2nu22f-6"] {
+      content: "eVAZMP,"
+    }
+
+    /*!sc*/
+    .LePKn {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .LePKn {
+        -webkit-flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+        flex-direction: column-reverse;
+        gap: 8px;
+        margin-bottom: 32px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g158[id="SiteFooter__NavWrapper-sc-2nu22f-7"] {
+      content: "LePKn,"
+    }
+
+    /*!sc*/
+    .gHlnUn {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      gap: 48px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gHlnUn {
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        gap: unset;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gHlnUn {
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: start;
+        -webkit-justify-content: start;
+        -ms-flex-pack: start;
+        justify-content: start;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g159[id="SiteFooter__NavList-sc-2nu22f-8"] {
+      content: "gHlnUn,"
+    }
+
+    /*!sc*/
+    .eerzPr {
+      width: 145px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .eerzPr {
+        width: 30%;
+        margin-bottom: 24px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .eerzPr {
+        width: 50%;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g160[id="SiteFooter__Nav-sc-2nu22f-9"] {
+      content: "eerzPr,"
+    }
+
+    /*!sc*/
+    .eYZhfT {
+      line-height: 26px;
+      color: #191B23;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /*!sc*/
+    data-styled.g161[id="SiteFooter__NavTitle-sc-2nu22f-10"] {
+      content: "eYZhfT,"
+    }
+
+    /*!sc*/
+    .eEQEUz {
+      line-height: 24px;
+      margin-top: 10px;
+      color: #242631;
+      font-size: 16px;
+    }
+
+    /*!sc*/
+    .eEQEUz a {
+      -webkit-text-decoration: none;
+      text-decoration: none;
+    }
+
+    /*!sc*/
+    .eEQEUz a:hover {
+      color: #5A41F5;
+    }
+
+    /*!sc*/
+    data-styled.g163[id="SiteFooter__SubNavItem-sc-2nu22f-12"] {
+      content: "eEQEUz,"
+    }
+
+    /*!sc*/
+    .fSQARf {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding-bottom: 24px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .fSQARf {
+        -webkit-align-items: flex-end;
+        -webkit-box-align: flex-end;
+        -ms-flex-align: flex-end;
+        align-items: flex-end;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .fSQARf {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-align-items: flex-start;
+        -webkit-box-align: flex-start;
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g165[id="SiteFooter__SocialWrapper-sc-2nu22f-14"] {
+      content: "fSQARf,"
+    }
+
+    /*!sc*/
+    .fyepnI {
+      line-height: 24px;
+      color: #3A3C46;
+      font-size: 16px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .fyepnI {
+        line-height: 26px;
+        font-size: 18px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .fyepnI {
+        line-height: 18px;
+        font-size: 12px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g166[id="SiteFooter__ContactWrapper-sc-2nu22f-15"] {
+      content: "fyepnI,"
+    }
+
+    /*!sc*/
+    .ljfsyf {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding: 8px 0 24px;
+      border-bottom: 1px solid #EAECEE;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .ljfsyf {
+        padding: 4px 0 16px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g167[id="SiteFooter__AddressWrapper-sc-2nu22f-16"] {
+      content: "ljfsyf,"
+    }
+
+    /*!sc*/
+    .SacFv {
+      line-height: 20px;
+      color: #3A3C46;
+      font-size: 13px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .SacFv {
+        line-height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g168[id="SiteFooter__Address-sc-2nu22f-17"] {
+      content: "SacFv,"
+    }
+
+    /*!sc*/
+    .fTOvAa {
+      line-height: 21px;
+      padding: 24px 0 8px;
+      color: #73757D;
+      font-size: 12px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .fTOvAa {
+        padding-top: 32px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .fTOvAa {
+        line-height: 18px;
+        padding-top: 20px;
+        font-size: 10px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g170[id="SiteFooter__DisclaimerWrapper-sc-2nu22f-19"] {
+      content: "fTOvAa,"
+    }
+
+    /*!sc*/
+    .klwhZr {
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .klwhZr {
+        font-size: 10px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g171[id="SiteFooter__Disclaimer-sc-2nu22f-20"] {
+      content: "klwhZr,"
+    }
+
+    /*!sc*/
+    .wVzWc {
+      line-height: 20px;
+      font-size: 13px;
+      color: #3A3C46;
+    }
+
+    /*!sc*/
+    data-styled.g172[id="SiteFooter__Copyright-sc-2nu22f-21"] {
+      content: "wVzWc,"
+    }
+
+    /*!sc*/
+    .csqBjQ {
+      color: #454B6A;
+      box-sizing: border-box;
+    }
+
+    /*!sc*/
+    data-styled.g173[id="_app__Wrapper-sc-12r84xi-0"] {
+      content: "csqBjQ,"
+    }
+
+    /*!sc*/
+    .ivQAXG {
+      opacity: unset;
+    }
+
+    /*!sc*/
+    data-styled.g175[id="TranslateYOnScroll__TranslateYOnScrollWrapper-sc-cgz6zj-0"] {
+      content: "ivQAXG,"
+    }
+
+    /*!sc*/
+    .SYDrZ {
+      padding: 180px 0 180px;
+      background: #F7F8FF;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .SYDrZ {
+        padding: 120px 0 120px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .SYDrZ {
+        padding: 80px 0 80px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g285[id="ApprovedBySection__Wrapper-sc-12uh6rj-0"] {
+      content: "SYDrZ,"
+    }
+
+    /*!sc*/
+    .kHAhVB {
+      line-height: 48px;
+      color: #242631;
+      font-weight: 700;
+      font-size: 40px;
+      text-align: center;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .kHAhVB {
+        line-height: 48px;
+        font-size: 36px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .kHAhVB {
+        line-height: 32px;
+        font-size: 24px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g286[id="ApprovedBySection__ApprovedByTitle-sc-12uh6rj-1"] {
+      content: "kHAhVB,"
+    }
+
+    /*!sc*/
+    .gwxngw {
+      line-height: 48px;
+      color: #242631;
+      font-weight: 700;
+      font-size: 40px;
+      text-align: center;
+      margin-top: 200px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gwxngw {
+        line-height: 48px;
+        font-size: 36px;
+        margin-top: 100px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gwxngw {
+        line-height: 32px;
+        font-size: 24px;
+        margin-top: 72px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g287[id="ApprovedBySection__PartneredWithTitle-sc-12uh6rj-2"] {
+      content: "gwxngw,"
+    }
+
+    /*!sc*/
+    .eDWKnO {
+      margin: 60px 100px 0;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: space-evenly;
+      -webkit-justify-content: space-evenly;
+      -ms-flex-pack: space-evenly;
+      justify-content: space-evenly;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .eDWKnO {
+        margin: 36px 0 0px;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g288[id="ApprovedBySection__LogoContainer-sc-12uh6rj-3"] {
+      content: "eDWKnO,"
+    }
+
+    /*!sc*/
+    .nupNt {
+      margin-top: 40px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .nupNt {
+        margin-top: 30px;
+        display: inline-block;
+        width: 50%;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g289[id="ApprovedBySection__LogoItem-sc-12uh6rj-4"] {
+      content: "nupNt,"
+    }
+
+    /*!sc*/
+    .bZXYzQ {
+      background: linear-gradient(180deg, rgba(247, 248, 255, 0) 2.89%, #f7f8ff 22.16%, #f7f8ff 100%);
+    }
+
+    /*!sc*/
+    data-styled.g290[id="CTASection__Wrapper-sc-1npclxj-0"] {
+      content: "bZXYzQ,"
+    }
+
+    /*!sc*/
+    .dRCfpZ {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      width: 100%;
+      height: 668px;
+      text-align: center;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .dRCfpZ {
+        margin-top: 40px;
+        height: 492px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .dRCfpZ {
+        margin-top: 20px;
+        height: 328px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g291[id="CTASection__Container-sc-1npclxj-1"] {
+      content: "dRCfpZ,"
+    }
+
+    /*!sc*/
+    .jsgovV {
+      line-height: 64px;
+      margin-bottom: 56px;
+      color: #242631;
+      font-weight: bold;
+      font-size: 48px;
+      text-align: center;
+      -webkit-letter-spacing: -0.02em;
+      -moz-letter-spacing: -0.02em;
+      -ms-letter-spacing: -0.02em;
+      letter-spacing: -0.02em;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .jsgovV {
+        line-height: 56px;
+        font-size: 40px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .jsgovV {
+        line-height: 32px;
+        margin-bottom: 32px;
+        font-size: 24px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g293[id="CTASection__Title-sc-1npclxj-3"] {
+      content: "jsgovV,"
+    }
+
+    /*!sc*/
+    .cNLenm {
+      height: px;
+    }
+
+    /*!sc*/
+    data-styled.g295[id="HeroSection__Wrapper-sc-19y8ibt-0"] {
+      content: "cNLenm,"
+    }
+
+    /*!sc*/
+    .jMvBOx {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: url("images/img-hero-video-bg.png") no-repeat;
+      background-size: cover;
+    }
+
+    /*!sc*/
+    data-styled.g296[id="HeroSection__VideoWrapper-sc-19y8ibt-1"] {
+      content: "jMvBOx,"
+    }
+
+    /*!sc*/
+    .cyfHTy {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(6, 9, 21, 0.55);
+    }
+
+    /*!sc*/
+    data-styled.g297[id="HeroSection__VideoCover-sc-19y8ibt-2"] {
+      content: "cyfHTy,"
+    }
+
+    /*!sc*/
+    .bbJYiw {
+      position: absolute;
+      left: 0;
+      bottom: 120px;
+      width: 100%;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .bbJYiw {
+        bottom: 96px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .bbJYiw {
+        bottom: 92px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g298[id="HeroSection__TitleWrapper-sc-19y8ibt-3"] {
+      content: "bbJYiw,"
+    }
+
+    /*!sc*/
+    .gAcmhx {
+      line-height: 90px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 72px;
+      -webkit-letter-spacing: -0.02em;
+      -moz-letter-spacing: -0.02em;
+      -ms-letter-spacing: -0.02em;
+      letter-spacing: -0.02em;
+      text-shadow: 6px 6px 18px rgba(18, 20, 26, 0.08);
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gAcmhx {
+        line-height: 72px;
+        font-size: 60px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gAcmhx {
+        line-height: 46px;
+        font-size: 36px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g299[id="HeroSection__Title-sc-19y8ibt-4"] {
+      content: "gAcmhx,"
+    }
+
+    /*!sc*/
+    .dNsoQi {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /*!sc*/
+    data-styled.g300[id="HeroSection__Video-sc-19y8ibt-5"] {
+      content: "dNsoQi,"
+    }
+
+    /*!sc*/
+    .cUGZGP {
+      position: absolute;
+      bottom: 52px;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+      -webkit-animation: bTELPh 2s infinite linear;
+      animation: bTELPh 2s infinite linear;
+    }
+
+    /*!sc*/
+    .cUGZGP path {
+      stroke: #C1C2C7;
+    }
+
+    /*!sc*/
+    data-styled.g301[id="HeroSection__DownArrowWrapper-sc-19y8ibt-6"] {
+      content: "cUGZGP,"
+    }
+
+    /*!sc*/
+    .cSUCky {
+      padding-top: 180px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .cSUCky {
+        padding-top: 120px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .cSUCky {
+        padding-top: 80px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g302[id="LeadershipSection__Wrapper-sc-sl0x1w-0"] {
+      content: "cSUCky,"
+    }
+
+    /*!sc*/
+    .fwcZui {
+      margin-bottom: 96px;
+      line-height: 48px;
+      color: #242631;
+      font-weight: 700;
+      font-size: 40px;
+      text-align: center;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .fwcZui {
+        line-height: 48px;
+        margin-bottom: 80px;
+        font-size: 36px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .fwcZui {
+        line-height: 32px;
+        font-size: 24px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g303[id="LeadershipSection__Title-sc-sl0x1w-1"] {
+      content: "fwcZui,"
+    }
+
+    /*!sc*/
+    .gZwzRe {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gZwzRe {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding: 0 80px;
+        box-sizing: border-box;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gZwzRe {
+        padding: 0;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g304[id="LeadershipSection__LeadersContainer-sc-sl0x1w-2"] {
+      content: "gZwzRe,"
+    }
+
+    /*!sc*/
+    .dBEbjI {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      max-width: 552px;
+      width: 100%;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .dBEbjI {
+        max-width: 100%;
+        padding-top: unset;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .dBEbjI {
+        padding-top: unset;
+      }
+    }
+
+    /*!sc*/
+    .bMXfZd {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      max-width: 552px;
+      width: 100%;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .bMXfZd {
+        max-width: 100%;
+        padding-top: 48px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .bMXfZd {
+        padding-top: 36px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g305[id="LeadershipSection__LeaderBox-sc-sl0x1w-3"] {
+      content: "dBEbjI,bMXfZd,"
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .cuVNfh {
+        margin-right: unset;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .cvzzlu {
+        margin-right: -16px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g306[id="LeadershipSection__LeaderItem-sc-sl0x1w-4"] {
+      content: "cuVNfh,cvzzlu,"
+    }
+
+    /*!sc*/
+    .jjHLwL {
+      max-width: 264px;
+      width: 100%;
+    }
+
+    /*!sc*/
+    .jjHLwL img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .jjHLwL {
+        max-width: calc(100% - 16px);
+      }
+
+      .jjHLwL img {
+        max-width: 264px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g307[id="LeadershipSection__Image-sc-sl0x1w-5"] {
+      content: "jjHLwL,"
+    }
+
+    /*!sc*/
+    .jmVmdn {
+      line-height: 36px;
+      margin-top: 24px;
+      color: #242631;
+      font-weight: 700;
+      font-size: 28px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .jmVmdn {
+        line-height: 26px;
+        font-size: 18px;
+        margin-top: 12px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g308[id="LeadershipSection__Name-sc-sl0x1w-6"] {
+      content: "jmVmdn,"
+    }
+
+    /*!sc*/
+    .hAQWyW {
+      line-height: 28px;
+      margin-top: 8px;
+      color: #50525A;
+      font-size: 20px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .hAQWyW {
+        line-height: 22px;
+        margin-top: 4px;
+        font-size: 14px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g309[id="LeadershipSection__Job-sc-sl0x1w-7"] {
+      content: "hAQWyW,"
+    }
+
+    /*!sc*/
+    .iBNGOx {
+      padding: 160px 0;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .iBNGOx {
+        padding: 120px 0;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .iBNGOx {
+        padding: 80px 0;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g310[id="OurValuesSection__Wrapper-sc-1tazeam-0"] {
+      content: "iBNGOx,"
+    }
+
+    /*!sc*/
+    .jkFxms {
+      line-height: 48px;
+      color: #242631;
+      font-weight: bold;
+      font-size: 40px;
+      text-align: center;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .jkFxms {
+        line-height: 48px;
+        font-size: 36px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .jkFxms {
+        line-height: 32px;
+        font-size: 24px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g311[id="OurValuesSection__Title-sc-1tazeam-1"] {
+      content: "jkFxms,"
+    }
+
+    /*!sc*/
+    .hjTLWL {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      padding: 48px 0 72px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .hjTLWL {
+        padding-bottom: 60px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .hjTLWL {
+        padding: 28px 0 36px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g312[id="OurValuesSection__Divider-sc-1tazeam-2"] {
+      content: "hjTLWL,"
+    }
+
+    /*!sc*/
+    .kLEMbg {
+      width: 48px;
+      height: 6px;
+      background: #5233d4;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .kLEMbg {
+        height: 4px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g313[id="OurValuesSection__DividerItem-sc-1tazeam-3"] {
+      content: "kLEMbg,"
+    }
+
+    /*!sc*/
+    .gkusEM {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gkusEM {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g314[id="OurValuesSection__ItemContainer-sc-1tazeam-4"] {
+      content: "gkusEM,"
+    }
+
+    /*!sc*/
+    .iVAlah {
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .iVAlah {
+        max-width: 100%;
+        margin-bottom: 72px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .iVAlah {
+        max-width: 100%;
+        margin-bottom: 60px;
+      }
+    }
+
+    /*!sc*/
+    .gcQHjW {
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gcQHjW {
+        max-width: 100%;
+        margin-bottom: unset;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gcQHjW {
+        max-width: 100%;
+        margin-bottom: unset;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g315[id="OurValuesSection__Item-sc-1tazeam-5"] {
+      content: "iVAlah,gcQHjW,"
+    }
+
+    /*!sc*/
+    .dbVeLK {
+      line-height: 40px;
+      margin-bottom: 20px;
+      color: #242631;
+      font-weight: 700;
+      font-size: 32px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .dbVeLK {
+        line-height: 40px;
+        font-size: 32px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .dbVeLK {
+        line-height: 28px;
+        margin-bottom: 12px;
+        font-size: 22px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g316[id="OurValuesSection__ItemTitle-sc-1tazeam-6"] {
+      content: "dbVeLK,"
+    }
+
+    /*!sc*/
+    .gqLfNW {
+      line-height: 32px;
+      color: #50525A;
+      font-size: 20px;
+      text-align: center;
+      -webkit-letter-spacing: -0.02em;
+      -moz-letter-spacing: -0.02em;
+      -ms-letter-spacing: -0.02em;
+      letter-spacing: -0.02em;
+      word-break: keep-all;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gqLfNW {
+        line-height: 32px;
+        font-size: 20px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gqLfNW {
+        line-height: 24px;
+        font-size: 16px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g317[id="OurValuesSection__ItemDescription-sc-1tazeam-7"] {
+      content: "gqLfNW,"
+    }
+
+    /*!sc*/
+    .eVSCXL {
+      padding: 160px 0;
+      background: #F6F7F8;
+      box-sizing: border-box;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .eVSCXL {
+        padding: 120px 0;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .eVSCXL {
+        padding: 80px 0;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g318[id="OurVisionSection__Wrapper-sc-flo8jl-0"] {
+      content: "eVSCXL,"
+    }
+
+    /*!sc*/
+    .dHApNc {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .dHApNc {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g319[id="OurVisionSection__Container-sc-flo8jl-1"] {
+      content: "dHApNc,"
+    }
+
+    /*!sc*/
+    .klxsEj {
+      max-width: 480px;
+      width: 100%;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 64px;
+      color: #242631;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .klxsEj {
+        max-width: 100%;
+        margin-bottom: 24px;
+        line-height: 52px;
+        font-size: 40px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .klxsEj {
+        line-height: 40px;
+        margin-bottom: 16px;
+        font-size: 28px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g320[id="OurVisionSection__Title-sc-flo8jl-2"] {
+      content: "klxsEj,"
+    }
+
+    /*!sc*/
+    .kaGpDy {
+      max-width: 552px;
+      width: 100%;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .kaGpDy {
+        max-width: 100%;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g321[id="OurVisionSection__Description-sc-flo8jl-3"] {
+      content: "kaGpDy,"
+    }
+
+    /*!sc*/
+    .gwEHmN {
+      line-height: 32px;
+      color: #50525A;
+      font-size: 20px;
+      padding-bottom: 16px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .gwEHmN {
+        line-height: 26px;
+        font-size: 18px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .gwEHmN {
+        line-height: 24px;
+        padding-bottom: 12px;
+        font-size: 16px;
+      }
+    }
+
+    /*!sc*/
+    .DJgXV {
+      line-height: 32px;
+      color: #50525A;
+      font-size: 20px;
+      padding-bottom: unset;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .DJgXV {
+        line-height: 26px;
+        font-size: 18px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .DJgXV {
+        line-height: 24px;
+        padding-bottom: unset;
+        font-size: 16px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g322[id="OurVisionSection__DescriptionItem-sc-flo8jl-4"] {
+      content: "gwEHmN,DJgXV,"
+    }
+
+    /*!sc*/
+    .liqBfB {
+      overflow: hidden;
+      padding-top: 200px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:1127px) {
+      .liqBfB {
+        padding-top: 160px;
+      }
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .liqBfB {
+        padding-top: 100px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g323[id="SlideSection__Wrapper-sc-kh9z5d-0"] {
+      content: "liqBfB,"
+    }
+
+    /*!sc*/
+    .budLlx {
+      width: 5208px;
+      height: 173px;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .budLlx {
+        height: 115px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g325[id="SlideSection__Slide-sc-kh9z5d-2"] {
+      content: "budLlx,"
+    }
+
+    /*!sc*/
+    .kRNXqZ {
+      margin-bottom: 16px;
+      background: url("images/img-slide-top.png") 0px center repeat-x;
+      -webkit-animation: feqfIh 200s ease 0s infinite normal none running;
+      animation: feqfIh 200s ease 0s infinite normal none running;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .kRNXqZ {
+        background-size: auto 100%;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g326[id="SlideSection__TopSlide-sc-kh9z5d-3"] {
+      content: "kRNXqZ,"
+    }
+
+    /*!sc*/
+    .jOUpej {
+      background: url("images/img-slide-bottom.png") 0px center repeat-x;
+      -webkit-animation: feqfIh 200s ease 0s infinite normal none running;
+      animation: feqfIh 200s ease 0s infinite normal none running;
+      -webkit-animation-direction: reverse;
+      animation-direction: reverse;
+    }
+
+    /*!sc*/
+    @media screen and (max-width:767px) {
+      .jOUpej {
+        background-size: auto 100%;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g327[id="SlideSection__BottomSlide-sc-kh9z5d-4"] {
+      content: "jOUpej,"
+    }
+
+    /*!sc*/
+    @-webkit-keyframes bTELPh {
+      0% {
+        opacity: unset;
+      }
+
+      30% {
+        opacity: 1;
+        bottom: 52px;
+      }
+
+      100% {
+        opacity: unset;
+        bottom: 32px;
+      }
+    }
+
+    /*!sc*/
+    @keyframes bTELPh {
+      0% {
+        opacity: unset;
+      }
+
+      30% {
+        opacity: 1;
+        bottom: 52px;
+      }
+
+      100% {
+        opacity: unset;
+        bottom: 32px;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g328[id="sc-keyframes-bTELPh"] {
+      content: "bTELPh,"
+    }
+
+    /*!sc*/
+    @-webkit-keyframes feqfIh {
+      from {
+        background-position: 0 center;
+      }
+
+      to {
+        background-position: -3472px center;
+      }
+    }
+
+    /*!sc*/
+    @keyframes feqfIh {
+      from {
+        background-position: 0 center;
+      }
+
+      to {
+        background-position: -3472px center;
+      }
+    }
+
+    /*!sc*/
+    data-styled.g329[id="sc-keyframes-feqfIh"] {
+      content: "feqfIh,"
+    }
+
+    /*!sc*/
+  </style>
+</head>
+
+<body>
+  <div id="__next" data-reactroot="">
+    <div class="_app__Wrapper-sc-12r84xi-0 csqBjQ">
+      <div class="Navbar__Wrapper-sc-9bk630-0 klOvr">
+        <div class="Navbar__NavbarWrapper-sc-9bk630-2 ipNLsG">
+          <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+            <div class="Navbar__BoxWrapper-sc-9bk630-3 eZIduD">
+              <div class="Navbar__NavbarBox-sc-9bk630-4 frdPAX">
+                <div class="Navbar__NavbarLogo-sc-9bk630-5 eHiwMn">
+                  <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><svg width="84" height="36" viewBox="0 0 84 36"
+                      fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#NavbarLogoSvgclip0_3816_8976)">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M33.9643 15.3247C34.8479 14.1039 36.1673 13.6717 37.525 13.6717C40.3429 13.6717 42.3538 15.6173 42.3538 18.4785V26.3245H39.0109V19.5467C39.0109 17.7663 38.1141 16.7871 36.5901 16.7871C35.1555 16.7871 33.9643 17.7156 33.9643 19.5721V26.3245H30.6211V8H33.9643V15.3247ZM48.4805 20.1573C48.4805 22.0391 49.723 23.5524 51.6827 23.5524C53.5913 23.5524 54.8848 22.1029 54.8848 20.1573C54.8848 18.2116 53.5913 16.7619 51.6827 16.7619C49.723 16.7619 48.4805 18.2752 48.4805 20.1573ZM51.0658 13.6716C52.7694 13.6716 53.9607 14.3582 54.7805 15.3627V14.0023H58.0467V26.3245H54.7805V24.9638C53.9734 25.9556 52.7694 26.6425 51.0658 26.6425C47.6461 26.6425 45.0586 23.8574 45.0586 20.1571C45.0586 16.4563 47.6461 13.6716 51.0658 13.6716ZM64.6194 15.35V14.0021H61.3789V26.3242H64.7221V19.6099C64.7221 17.7788 65.7851 16.8377 67.335 16.8377C68.0137 16.8377 68.8079 16.9903 69.3589 17.2319L69.8582 13.9382C69.3972 13.773 68.8336 13.6714 68.1164 13.6714C66.592 13.6714 65.4008 14.1927 64.6194 15.35ZM78.1408 23.5521C79.5754 23.5521 80.6769 22.7511 80.6769 20.7799V14.0022H84.0072V21.0725C84.0072 24.9637 81.2405 26.6424 78.1408 26.6424C75.0282 26.6424 72.2617 24.9637 72.2617 21.0725V14.0022H75.6046V20.7799C75.6046 22.7511 76.6935 23.5521 78.1408 23.5521Z"
+                          fill="black"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M15.8576 2L10.0165 5.37236L10.0154 5.37154L0 11.154V22.7186L5.84291 26.0921H5.84225L0 29.4652L4.17313 31.8744L10.0154 28.5014V28.5009L20.0306 22.7186V11.154L14.1897 7.78159L20.0306 4.4094L15.8576 2ZM4.17188 20.3094V13.5632L10.0141 10.1902L15.8564 13.5632V20.3094L10.0141 23.6824L4.17188 20.3094Z"
+                          fill="#5A41F5"></path>
+                      </g>
+                      <defs>
+                        <clipPath id="NavbarLogoSvgclip0_3816_8976">
+                          <rect width="84" height="36" fill="white"></rect>
+                        </clipPath>
+                      </defs>
+                    </svg></div>
+                </div>
+
+                <div class="Navbar__NavList-sc-9bk630-6 isULWC">
+                  <div class="Navbar__NavItem-sc-9bk630-8 jPmdlx">
+                    <div class="Navbar__NavLinkWrapper-sc-9bk630-9 hvhwEB">
+                      <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                        <div class="Navbar__HaruLinkItem-sc-9bk630-10 iTLRdb" id="earn_btn">
+                          <a class="respect-color">Earn</a>
+                        </div>
+                      </div>
+
+                      <nav class="SubNavbar__SubNavWrapper-sc-r7qi2o-0 dMhnZJ" id="earn_list">
+                        <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                          <div class="SubNavbar__SubNavbarBox-sc-r7qi2o-1 jiMFcv">
+                            <div class="SubNavbar__ContentWrapper-sc-r7qi2o-2 hTFODS">
+                              <div class="SubNavbar__ContentTitle-sc-r7qi2o-3 iJqaYN">Haru Earn</div>
+                              <div class="SubNavbar__ContentDescription-sc-r7qi2o-4 fha-dpD">
+                                Lock up and earn more every day.
+                              </div>
+                              <div class="SubNavbar__ContentLinkWrapper-sc-r7qi2o-5 eusaqo">
+                                <div class="SubNavbar__ContentLink-sc-r7qi2o-6 hngHsM">
+                                  <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                    <a href="/haru-earn/index.html" class="respect-color">
+                                      <span class="SubNavbar__LinkLabel-sc-r7qi2o-7 eQGjTX">Learn more</span>
+                                      <span class="SubNavbar__LinkImage-sc-r7qi2o-8 ieudcp">
+                                        <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path
+                                            d="M3.0595 15.0615L10.1195 8.00045L3.0595 0.939453L0.9375 3.06145L5.8775 8.00045L0.9375 12.9395L3.0595 15.0615Z"
+                                            fill="#5A41F5"></path>
+                                        </svg>
+                                      </span>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="SubNavbar__ProductWrapper-sc-r7qi2o-9 iTdJSa">
+                              <li class="SubNavbarProductItem__ProductItem-sc-1n97xqh-0 dhRKzJ">
+                                <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                  <a href="/haru-earn/plus/index.html" class="respect-color">
+                                    <div class="SubNavbarProductItem__Product-sc-1n97xqh-6 eTShgO">
+                                      <div class="SubNavbarProductItem__ProductTitleWrapper-sc-1n97xqh-1 kLuqNJ">
+                                        <div class="SubNavbarProductItem__ProductTitle-sc-1n97xqh-2 LDOdC">Earn Plus
+                                        </div>
+                                        <div class="SubNavbarProductItem__ProductTitleImage-sc-1n97xqh-3 jBRnOr"><svg
+                                            width="11" height="16" viewBox="0 0 11 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                              d="M3.0595 15.0615L10.1195 8.00045L3.0595 0.939453L0.9375 3.06145L5.8775 8.00045L0.9375 12.9395L3.0595 15.0615Z"
+                                              fill="#73757D"></path>
+                                          </svg></div>
+                                      </div>
+                                      <div class="SubNavbarProductItem__ProductDescription-sc-1n97xqh-4 deTgAl"></div>
+                                      <div class="SubNavbarProductItem__ProductType-sc-1n97xqh-5 hIHVIF">Fixed Rate</div>
+                                    </div>
+                                  </a>
+                                </div>
+                              </li>
+                              <li class="SubNavbarProductItem__ProductItem-sc-1n97xqh-0 dhRKzJ">
+                                <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                  <a href="/haru-earn/explore/index.html" class="respect-color">
+                                    <div class="SubNavbarProductItem__Product-sc-1n97xqh-6 gpMOdk">
+                                      <div class="SubNavbarProductItem__ProductTitleWrapper-sc-1n97xqh-1 kLuqNJ">
+                                        <div class="SubNavbarProductItem__ProductTitle-sc-1n97xqh-2 LDOdC">Earn Explore
+                                        </div>
+                                        <div class="SubNavbarProductItem__ProductTitleImage-sc-1n97xqh-3 jBRnOr"><svg
+                                            width="11" height="16" viewBox="0 0 11 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                              d="M3.0595 15.0615L10.1195 8.00045L3.0595 0.939453L0.9375 3.06145L5.8775 8.00045L0.9375 12.9395L3.0595 15.0615Z"
+                                              fill="#73757D"></path>
+                                          </svg></div>
+                                      </div>
+                                      <div class="SubNavbarProductItem__ProductDescription-sc-1n97xqh-4 deTgAl">Target up to 25% APR</div>
+                                      <div class="SubNavbarProductItem__ProductType-sc-1n97xqh-5 hIHVIF">Performance Based</div>
+                                    </div>
+                                  </a>
+                                </div>
+                              </li>
+                            </div>
+                          </div>
+                        </div>
+                      </nav>
+                    </div>
+                  </div>
+                  <div class="Navbar__NavItem-sc-9bk630-8 jPmdlx">
+                    <div class="Navbar__NavLinkWrapper-sc-9bk630-9 hvhwEB">
+                      <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                        <div class="Navbar__HaruLinkItem-sc-9bk630-10 iTLRdb">
+                          <a href="/haru-switch/index.html" class="respect-color">Switch</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="Navbar__NavItem-sc-9bk630-8 jPmdlx">
+                    <div class="Navbar__NavLinkWrapper-sc-9bk630-9 hvhwEB">
+                      <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                        <div class="Navbar__HaruLinkItem-sc-9bk630-10 iTLRdb">
+                          <a href="/haru-freeze/index.html" class="respect-color">Freeze</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="Navbar__NavItem-sc-9bk630-8 jPmdlx">
+                    <div class="Navbar__NavLinkWrapper-sc-9bk630-9 hvhwEB">
+                      <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                        <div class="Navbar__HaruLinkItem-sc-9bk630-10 iTLRdb" id="discover_btn">
+                          <a class="respect-color">Discover</a>
+                        </div>
+                      </div>
+                      <nav class="ListSubNavbar__SubNavWrapper-sc-1e270en-0 lbjfQV" id="discover_list">
+                        <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                          <div class="ListSubNavbar__SubNavbarBox-sc-1e270en-1 hskcgx">
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/refer-and-earn/index.html" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">Refer &amp; Earn
+                                      </div><svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/ambassador/index.html" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">Ambassadors</div>
+                                      <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/vip/index.html" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">VIP Luminary Club
+                                      </div><svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/blog" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">Blog</div><svg
+                                        width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/help-center" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">Help Center</div>
+                                      <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a></div>
+                            </li>
+                          </div>
+                        </div>
+                      </nav>
+                    </div>
+                  </div>
+                  <div class="Navbar__NavItem-sc-9bk630-8 jPmdlx">
+                    <div class="Navbar__NavLinkWrapper-sc-9bk630-9 hvhwEB">
+                      <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                        <div class="Navbar__HaruLinkItem-sc-9bk630-10 iTLRdb" id="company_btn">
+                          <a class="respect-color">Company</a></div>
+                      </div>
+                      <nav class="ListSubNavbar__SubNavWrapper-sc-1e270en-0 lbjfQV" id="company_list">
+                        <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                          <div class="ListSubNavbar__SubNavbarBox-sc-1e270en-1 hskcgx">
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/about-us/index.html" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">About Us</div>
+                                      <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/strategy/index.html" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">Trading
+                                        Strategies</div><svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                            <li class="ListSubNavbarItem__Wrapper-sc-mezdjv-0 fIBmdv">
+                              <div class="HaruLink__LinkWrapper-sc-bk2kri-0 fjRdaP">
+                                <a href="/trust/index.html" class="respect-color">
+                                  <div class="ListSubNavbarItem__NaviItem-sc-mezdjv-1 kFnKgJ">
+                                    <div class="ListSubNavbarItem__NaviItemContainer-sc-mezdjv-2 iQGoei">
+                                      <div class="ListSubNavbarItem__NaviItemTitle-sc-mezdjv-3 kVYwYb">Trust and
+                                        Security</div><svg width="12" height="20" viewBox="0 0 12 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                          d="M0.50001 17.4525L2.12251 19.075L11.1975 9.99995L2.12251 0.924951L0.500011 2.54745L7.95251 9.99995L0.50001 17.4525Z"
+                                          fill="#353B6D"></path>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                            </li>
+                          </div>
+                        </div>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="Navbar__UtilBox-sc-9bk630-11 gWDFYd">
+                <div class="Navbar__LanguageWrapper-sc-9bk630-12 dQhTmF">
+                  <div class="Navbar__LanguageItem-sc-9bk630-13 kbboDf">
+                    <div class="Navbar__LanguageIcon-sc-9bk630-14 PiTJb"><svg width="18" height="18" viewBox="0 0 18 18"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M9 1.5C4.8645 1.5 1.5 4.8645 1.5 9C1.5 13.1355 4.8645 16.5 9 16.5C13.1355 16.5 16.5 13.1355 16.5 9C16.5 4.8645 13.1355 1.5 9 1.5ZM14.9482 8.25H12.8752C12.7827 6.60843 12.3235 5.00847 11.5312 3.56775C12.4494 3.99679 13.2441 4.65105 13.8416 5.46968C14.439 6.28832 14.8197 7.24474 14.9482 8.25ZM9.3975 3.02025C10.1737 4.04325 11.2177 5.85525 11.3678 8.25H6.7725C6.87675 6.303 7.518 4.479 8.61075 3.0195C8.73975 3.012 8.86875 3 9 3C9.13425 3 9.2655 3.012 9.3975 3.02025ZM6.516 3.54525C5.778 4.9635 5.352 6.5715 5.2725 8.25H3.05175C3.18133 7.23588 3.56748 6.27158 4.17367 5.44831C4.77986 4.62505 5.58606 3.97004 6.516 3.54525ZM3.05175 9.75H5.28225C5.38425 11.5343 5.781 13.1085 6.44925 14.4225C5.53589 13.992 4.7458 13.3381 4.15197 12.5215C3.55814 11.7048 3.17975 10.7516 3.05175 9.75ZM8.5875 14.9798C7.53675 13.7063 6.9165 11.922 6.78075 9.75H11.3655C11.2095 11.8298 10.5278 13.647 9.41325 14.979C9.27675 14.988 9.14025 15 9 15C8.8605 15 8.72475 14.988 8.5875 14.9798ZM11.5958 14.4008C12.312 13.0553 12.7493 11.475 12.864 9.75H14.9475C14.8209 10.7432 14.448 11.689 13.8626 12.5013C13.2772 13.3135 12.4979 13.9665 11.5958 14.4008Z"
+                          fill="#191B23"></path>
+                      </svg></div>
+                    <div class="Navbar__LanguageLabel-sc-9bk630-15 hWdGS">English</div>
+                  </div>
+                  <div class="LanguageList__Wrapper-sc-ihcfu5-0 jxunbK">
+                    <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                      <div class="LanguageList__TitleWrapper-sc-ihcfu5-1 dxaAMU">
+                        <div class="LanguageList__Title-sc-ihcfu5-2 cwiHqz">Select Language</div>
+                        <div class="LanguageList__CopyrightWrapper-sc-ihcfu5-3 cvQNTO">
+                          <div class="LanguageList__Copyright-sc-ihcfu5-4 HFhbE">translated by</div>
+                          <div class="LanguageList__CopyrightLogo-sc-ihcfu5-5 bZuDHa"><svg width="49" height="16"
+                              viewBox="0 0 49 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M6.15831 5.58562V7.22429H10.0803C9.96298 8.14629 9.65565 8.81962 9.18765 9.28762C8.61631 9.85829 7.72365 10.4876 6.15831 10.4876C3.74298 10.4876 1.85565 8.54162 1.85565 6.12695C1.85565 3.71229 3.74298 1.76629 6.15831 1.76629C7.46031 1.76629 8.41165 2.27829 9.11431 2.93695L10.2703 1.78029C9.28965 0.844286 7.98765 0.126953 6.15831 0.126953C2.85098 0.126953 0.0703125 2.81962 0.0703125 6.12695C0.0703125 9.43429 2.85098 12.127 6.15831 12.127C7.94298 12.127 9.28965 11.5416 10.3436 10.4443C11.4263 9.36095 11.763 7.83895 11.763 6.60962C11.763 6.22962 11.7336 5.87829 11.675 5.58562H6.15831Z"
+                                fill="#4285F4"></path>
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M16.665 4.25439C14.5236 4.25439 12.7776 5.88306 12.7776 8.12706C12.7776 10.3564 14.5236 11.9997 16.665 11.9997C18.807 11.9997 20.5523 10.3564 20.5523 8.12706C20.5523 5.88306 18.807 4.25439 16.665 4.25439ZM16.665 10.4737C15.4916 10.4737 14.479 9.50573 14.479 8.12706C14.479 6.73373 15.4916 5.77973 16.665 5.77973C17.8383 5.77973 18.851 6.73373 18.851 8.12706C18.851 9.50573 17.8383 10.4737 16.665 10.4737Z"
+                                fill="#EB4335"></path>
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M35.72 5.11991H35.6613C35.2793 4.66457 34.546 4.25391 33.622 4.25391C31.686 4.25391 30 5.94057 30 8.12657C30 10.2972 31.686 11.9992 33.622 11.9992C34.546 11.9992 35.2793 11.5886 35.6613 11.1192H35.72V11.6606C35.72 13.1419 34.928 13.9339 33.6513 13.9339C32.61 13.9339 31.9647 13.1859 31.7007 12.5552L30.2193 13.1712C30.6447 14.1979 31.774 15.4599 33.6513 15.4599C35.6467 15.4599 37.3333 14.2866 37.3333 11.4259V4.45324H35.72V5.11991ZM33.7693 10.4732C32.596 10.4732 31.702 9.47591 31.702 8.12657C31.702 6.76257 32.596 5.77924 33.7693 5.77924C34.9287 5.77924 35.8373 6.77724 35.8373 8.14124C35.8373 9.49057 34.9287 10.4732 33.7693 10.4732Z"
+                                fill="#4285F4"></path>
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M25.3326 4.25391C23.1913 4.25391 21.4453 5.88257 21.4453 8.12657C21.4453 10.3559 23.1913 11.9992 25.3326 11.9992C27.4746 11.9992 29.22 10.3559 29.22 8.12657C29.22 5.88257 27.4746 4.25391 25.3326 4.25391ZM25.3326 10.4732C24.1593 10.4732 23.1473 9.50524 23.1473 8.12657C23.1473 6.73324 24.1593 5.77924 25.3326 5.77924C26.506 5.77924 27.5186 6.73324 27.5186 8.12657C27.5186 9.50524 26.506 10.4732 25.3326 10.4732Z"
+                                fill="#FBBC05"></path>
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M38.665 0.286865H40.3383V11.9995H38.665V0.286865Z" fill="#34A853"></path>
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M45.5083 10.4737C44.643 10.4737 44.027 10.0784 43.6303 9.30106L48.8083 7.15906L48.6323 6.71906C48.3096 5.85373 47.327 4.25439 45.3176 4.25439C43.3223 4.25439 41.665 5.82439 41.665 8.12706C41.665 10.2984 43.3076 11.9997 45.5083 11.9997C47.283 11.9997 48.3096 10.9144 48.735 10.2831L47.415 9.40306C46.975 10.0491 46.3736 10.4737 45.5083 10.4737ZM45.3823 5.70573C46.071 5.70573 46.6543 6.05639 46.849 6.55973L43.3516 8.00973C43.3516 6.37706 44.5063 5.70573 45.3823 5.70573Z"
+                                fill="#EB4335"></path>
+                            </svg></div>
+                        </div>
+                      </div>
+                      <div class="LanguageList__List-sc-ihcfu5-6 eHWOin">
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 hCpFIW">English</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">Español</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">Français</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">Italiano</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">Deutsch</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">日本語</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">简体中文</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">Português</div>
+                        <div class="LanguageList__ListItem-sc-ihcfu5-7 gtPdFe">Dutch</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="Navbar__ButtonWrapper-sc-9bk630-16 eToXhM">
+                  <div class="Navbar__ButtonBox-sc-9bk630-17 dhAeG"><a
+                      href="https://webapp.haruinvest.com/login"><button
+                        class="MuiButtonBase-root MuiButton-root jss1 MuiButton-text MuiButton-textSizeSmall MuiButton-sizeSmall jss4"
+                        tabindex="0" type="button"><span class="MuiButton-label jss2">Login</span></button></a></div>
+                  <div id="landing-gnb-signup-control" style="display:inline"
+                    class="Navbar__ButtonBox-sc-9bk630-17 lmZUUC"><a href="https://webapp.haruinvest.com/signup"><button
+                        class="MuiButtonBase-root MuiButton-root jss1 MuiButton-contained jss5 jss6 MuiButton-containedSizeSmall MuiButton-sizeSmall jss4"
+                        tabindex="0" type="button"><span class="MuiButton-label jss2">Start earning</span></button></a>
+                  </div>
+                  <div id="landing-gnb-signup-variant" style="display:none"
+                    class="Navbar__ButtonBox-sc-9bk630-17 lmZUUC"><a href="https://webapp.haruinvest.com/signup"><button
+                        class="MuiButtonBase-root MuiButton-root jss1 MuiButton-contained jss5 jss7 MuiButton-containedSizeSmall MuiButton-sizeSmall jss4"
+                        tabindex="0" type="button"><span class="MuiButton-label jss2">Get started</span></button></a>
+                  </div>
+                </div>
+              </div>
+              <div class="Navbar__MenuBox-sc-9bk630-18 ifxYAJ"><button
+                  class="Navbar__MenuButton-sc-9bk630-19 kvZQAx"><svg width="32" height="32" viewBox="0 0 32 32"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.3335 25.3332H26.6668V22.6665H5.3335V25.3332ZM5.3335 17.3332H21.3335V14.6665H5.3335V17.3332ZM5.3335 6.6665V9.33317H26.6668V6.6665H5.3335Z"
+                      fill="black"></path>
+                  </svg></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section>
+        <div class="HeroSection__Wrapper-sc-19y8ibt-0 cNLenm">
+          <div class="HeroSection__VideoWrapper-sc-19y8ibt-1 jMvBOx">
+            <div class="HeroSection__VideoCover-sc-19y8ibt-2 cyfHTy">
+              <div class="HeroSection__TitleWrapper-sc-19y8ibt-3 bbJYiw">
+                <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                  <div class="HeroSection__Title-sc-19y8ibt-4 gAcmhx">Our mission is to help you make smarter financial
+                    decisions through innovative crypto experiences.</div>
+                </div>
+              </div>
+            </div><video src="media/hero_section_video.mp4" muted="" loop="" playsinline=""
+              class="HeroSection__Video-sc-19y8ibt-5 dNsoQi"></video>
+            <div class="HeroSection__DownArrowWrapper-sc-19y8ibt-6 cUGZGP"><svg width="90" height="32"
+                viewBox="0 0 90 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="90" height="32"></rect>
+                <path d="M5 4L42.942 26.7652C44.2087 27.5252 45.7913 27.5252 47.058 26.7652L85 4" stroke="#3A3C46"
+                  stroke-width="5" stroke-linecap="round"></path>
+              </svg></div>
+          </div>
+        </div>
+        <div class="__scrollhooker">
+          <div class="TranslateYOnScroll__TranslateYOnScrollWrapper-sc-cgz6zj-0 ivQAXG">
+            <div class="OurVisionSection__Wrapper-sc-flo8jl-0 eVSCXL">
+              <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                <div class="OurVisionSection__Container-sc-flo8jl-1 dHApNc">
+                  <div class="OurVisionSection__Title-sc-flo8jl-2 klxsEj">Our vision is to create new opportunities that
+                    lead to ultimate financial freedom.</div>
+                  <div class="OurVisionSection__Description-sc-flo8jl-3 kaGpDy">
+                    <div class="OurVisionSection__DescriptionItem-sc-flo8jl-4 gwEHmN">What does financial freedom mean
+                      to you?<br>To some it may mean retiring early. To others, it may be owning a home or embarking on
+                      a trip around the world.</div>
+                    <div class="OurVisionSection__DescriptionItem-sc-flo8jl-4 gwEHmN">Founded in South Korea and
+                      headquartered in Singapore, we began in 2019 with one belief: that everyone deserves the
+                      opportunity to achieve financial freedom.</div>
+                    <div class="OurVisionSection__DescriptionItem-sc-flo8jl-4 gwEHmN">Today, members in over 140
+                      countries use our platform to maximize the power of their crypto assets through secure and simple
+                      investing.</div>
+                    <div class="OurVisionSection__DescriptionItem-sc-flo8jl-4 DJgXV">Some say our rates are too good to
+                      be true—but we’re 100% committed to helping you invest the way you want with our diverse products
+                      and enjoy the highest earn rates in the market, every single day.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="__scrollhooker">
+          <div class="TranslateYOnScroll__TranslateYOnScrollWrapper-sc-cgz6zj-0 ivQAXG">
+            <div class="OurValuesSection__Wrapper-sc-1tazeam-0 iBNGOx">
+              <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                <div class="OurValuesSection__Title-sc-1tazeam-1 jkFxms">Our Values</div>
+                <div class="OurValuesSection__Divider-sc-1tazeam-2 hjTLWL">
+                  <div class="OurValuesSection__DividerItem-sc-1tazeam-3 kLEMbg"></div>
+                </div>
+                <div class="OurValuesSection__ItemContainer-sc-1tazeam-4 gkusEM">
+                  <div class="OurValuesSection__Item-sc-1tazeam-5 iVAlah">
+                    <div class="OurValuesSection__ItemTitle-sc-1tazeam-6 dbVeLK">Start with<br>integrity</div>
+                    <div class="OurValuesSection__ItemDescription-sc-1tazeam-7 gqLfNW">Your trust is our first priority.
+                      We commit to making honest decisions and staying true to what’s best for our members through clear
+                      communication. </div>
+                  </div>
+                  <div class="OurValuesSection__Item-sc-1tazeam-5 iVAlah">
+                    <div class="OurValuesSection__ItemTitle-sc-1tazeam-6 dbVeLK">Explore a<br>better way</div>
+                    <div class="OurValuesSection__ItemDescription-sc-1tazeam-7 gqLfNW">We embrace challenges from
+                      diverse perspectives and explore all possibilities to achieve exceptional results that further our
+                      mission.</div>
+                  </div>
+                  <div class="OurValuesSection__Item-sc-1tazeam-5 gcQHjW">
+                    <div class="OurValuesSection__ItemTitle-sc-1tazeam-6 dbVeLK">Empower<br>everyone</div>
+                    <div class="OurValuesSection__ItemDescription-sc-1tazeam-7 gqLfNW">Through open and respectful
+                      collaboration, we build products that allow everyone to experience simple and secure crypto
+                      investing.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="__scrollhooker">
+          <div class="TranslateYOnScroll__TranslateYOnScrollWrapper-sc-cgz6zj-0 ivQAXG">
+            <div class="ApprovedBySection__Wrapper-sc-12uh6rj-0 SYDrZ">
+              <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                <div class="ApprovedBySection__ApprovedByTitle-sc-12uh6rj-1 kHAhVB">Approved By</div>
+                <div class="ApprovedBySection__LogoContainer-sc-12uh6rj-3 eDWKnO">
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-approved-by-logo-msb.png" width="324" height="72"></div>
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-approved-by-logo-verify.png" width="264" height="72"></div>
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-approved-by-logo-bvi.png" width="264" height="72"></div>
+                </div>
+                <div class="ApprovedBySection__PartneredWithTitle-sc-12uh6rj-2 gwxngw">Partnered With</div>
+                <div class="ApprovedBySection__LogoContainer-sc-12uh6rj-3 eDWKnO">
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-approved-by-logo-bitgo.png" width="264" height="72"></div>
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-partnered-with-chainalysis.png" width="244" height="64"></div>
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-approved-by-logo-sumsub.png" width="264" height="72"></div>
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-partnered-with-sfa.png" width="232" height="52"></div>
+                  <div class="ApprovedBySection__LogoItem-sc-12uh6rj-4 nupNt"><img
+                      src="images/img-partnered-with-blockchain-association-singapore.png" width="166" height="72">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="__scrollhooker">
+          <div class="TranslateYOnScroll__TranslateYOnScrollWrapper-sc-cgz6zj-0 ivQAXG">
+            <div class="LeadershipSection__Wrapper-sc-sl0x1w-0 cSUCky">
+              <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+                <div class="LeadershipSection__Title-sc-sl0x1w-1 fwcZui">Leadership</div>
+                <div class="LeadershipSection__LeadersContainer-sc-sl0x1w-2 gZwzRe">
+                  <div class="LeadershipSection__LeaderBox-sc-sl0x1w-3 dBEbjI">
+                    <div class="LeadershipSection__LeaderItem-sc-sl0x1w-4 cuVNfh">
+                      <div class="LeadershipSection__Image-sc-sl0x1w-5 jjHLwL"><img src="images/img-leadership-ceo.png">
+                      </div>
+                      <div class="LeadershipSection__Name-sc-sl0x1w-6 jmVmdn">Hugo Lee</div>
+                      <div class="LeadershipSection__Job-sc-sl0x1w-7 hAQWyW">CEO</div>
+                    </div>
+                    <div class="LeadershipSection__LeaderItem-sc-sl0x1w-4 cvzzlu">
+                      <div class="LeadershipSection__Image-sc-sl0x1w-5 jjHLwL"><img src="images/img-leadership-cmo.png">
+                      </div>
+                      <div class="LeadershipSection__Name-sc-sl0x1w-6 jmVmdn">Sang Woon Oh</div>
+                      <div class="LeadershipSection__Job-sc-sl0x1w-7 hAQWyW">CMO</div>
+                    </div>
+                  </div>
+                  <div class="LeadershipSection__LeaderBox-sc-sl0x1w-3 bMXfZd">
+                    <div class="LeadershipSection__LeaderItem-sc-sl0x1w-4 cuVNfh">
+                      <div class="LeadershipSection__Image-sc-sl0x1w-5 jjHLwL"><img src="images/img-leadership-cto.png">
+                      </div>
+                      <div class="LeadershipSection__Name-sc-sl0x1w-6 jmVmdn">Sejoon Lim</div>
+                      <div class="LeadershipSection__Job-sc-sl0x1w-7 hAQWyW">CTO</div>
+                    </div>
+                    <div class="LeadershipSection__LeaderItem-sc-sl0x1w-4 cvzzlu">
+                      <div class="LeadershipSection__Image-sc-sl0x1w-5 jjHLwL"><img src="images/img-leadership-po.png">
+                      </div>
+                      <div class="LeadershipSection__Name-sc-sl0x1w-6 jmVmdn">Sooyeon Kim</div>
+                      <div class="LeadershipSection__Job-sc-sl0x1w-7 hAQWyW">Head of Product</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="__scrollhooker">
+          <div class="TranslateYOnScroll__TranslateYOnScrollWrapper-sc-cgz6zj-0 ivQAXG">
+            <div class="SlideSection__Wrapper-sc-kh9z5d-0 liqBfB">
+              <div class="SlideSection__SlideContainer-sc-kh9z5d-1 gZonTV">
+                <div class="SlideSection__Slide-sc-kh9z5d-2 SlideSection__TopSlide-sc-kh9z5d-3 budLlx kRNXqZ"></div>
+                <div class="SlideSection__Slide-sc-kh9z5d-2 SlideSection__BottomSlide-sc-kh9z5d-4 budLlx jOUpej"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="CTASection__Wrapper-sc-1npclxj-0 bZXYzQ">
+          <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+            <div class="CTASection__Container-sc-1npclxj-1 dRCfpZ">
+              <div class="CTASection__Contents-sc-1npclxj-2 eRImWi">
+                <div class="CTASection__Title-sc-1npclxj-3 jsgovV">Join us in building the future of crypto
+                  investing<br><span style="color:#5A41F5">We’re growing and looking for new talent!</span></div>
+                <div class="CTASection__ButtonContainer-sc-1npclxj-4 gqOduL"><button
+                    class="MuiButtonBase-root MuiButton-root jss1 MuiButton-contained jss5 jss8 MuiButton-containedSizeLarge MuiButton-sizeLarge jss3"
+                    tabindex="0" type="button"><span class="MuiButton-label jss2">View Open Positions</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="SiteFooter__FooterWrapper-sc-2nu22f-0 isZMNA">
+        <div class="CenterWrapper-sc-pvsxhf-0 fRolBO">
+          <div class="SiteFooter__HeadWrapper-sc-2nu22f-1 gRxmbn">
+            <div class="SiteFooter__LogoWrapper-sc-2nu22f-2 fjVKL"><svg width="84" height="36" viewBox="0 0 84 36"
+                fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#NavbarLogoSvgclip0_3816_8976)">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M33.9643 15.3247C34.8479 14.1039 36.1673 13.6717 37.525 13.6717C40.3429 13.6717 42.3538 15.6173 42.3538 18.4785V26.3245H39.0109V19.5467C39.0109 17.7663 38.1141 16.7871 36.5901 16.7871C35.1555 16.7871 33.9643 17.7156 33.9643 19.5721V26.3245H30.6211V8H33.9643V15.3247ZM48.4805 20.1573C48.4805 22.0391 49.723 23.5524 51.6827 23.5524C53.5913 23.5524 54.8848 22.1029 54.8848 20.1573C54.8848 18.2116 53.5913 16.7619 51.6827 16.7619C49.723 16.7619 48.4805 18.2752 48.4805 20.1573ZM51.0658 13.6716C52.7694 13.6716 53.9607 14.3582 54.7805 15.3627V14.0023H58.0467V26.3245H54.7805V24.9638C53.9734 25.9556 52.7694 26.6425 51.0658 26.6425C47.6461 26.6425 45.0586 23.8574 45.0586 20.1571C45.0586 16.4563 47.6461 13.6716 51.0658 13.6716ZM64.6194 15.35V14.0021H61.3789V26.3242H64.7221V19.6099C64.7221 17.7788 65.7851 16.8377 67.335 16.8377C68.0137 16.8377 68.8079 16.9903 69.3589 17.2319L69.8582 13.9382C69.3972 13.773 68.8336 13.6714 68.1164 13.6714C66.592 13.6714 65.4008 14.1927 64.6194 15.35ZM78.1408 23.5521C79.5754 23.5521 80.6769 22.7511 80.6769 20.7799V14.0022H84.0072V21.0725C84.0072 24.9637 81.2405 26.6424 78.1408 26.6424C75.0282 26.6424 72.2617 24.9637 72.2617 21.0725V14.0022H75.6046V20.7799C75.6046 22.7511 76.6935 23.5521 78.1408 23.5521Z"
+                    fill="black"></path>
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M15.8576 2L10.0165 5.37236L10.0154 5.37154L0 11.154V22.7186L5.84291 26.0921H5.84225L0 29.4652L4.17313 31.8744L10.0154 28.5014V28.5009L20.0306 22.7186V11.154L14.1897 7.78159L20.0306 4.4094L15.8576 2ZM4.17188 20.3094V13.5632L10.0141 10.1902L15.8564 13.5632V20.3094L10.0141 23.6824L4.17188 20.3094Z"
+                    fill="#5A41F5"></path>
+                </g>
+                <defs>
+                  <clipPath id="NavbarLogoSvgclip0_3816_8976">
+                    <rect width="84" height="36" fill="white"></rect>
+                  </clipPath>
+                </defs>
+              </svg></div>
+            <div class="SiteFooter__SocialTitle-sc-2nu22f-3 fqilfh">Follow Us</div>
+            <div class="SiteFooter__SocialList-sc-2nu22f-4 erelFs">
+              <div class="SiteFooter__SocialItem-sc-2nu22f-6 eVAZMP"><a href="https://twitter.com/haruinvest"
+                  target="_blank" rel="noreferrer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M19.633 7.997C19.646 8.172 19.646 8.346 19.646 8.52C19.646 13.845 15.593 19.981 8.186 19.981C5.904 19.981 3.784 19.32 2 18.172C2.324 18.209 2.636 18.222 2.973 18.222C4.856 18.222 6.589 17.586 7.974 16.501C6.203 16.464 4.719 15.304 4.207 13.708C4.456 13.745 4.706 13.77 4.968 13.77C5.329 13.77 5.692 13.72 6.029 13.633C4.182 13.259 2.799 11.638 2.799 9.68V9.63C3.336 9.929 3.959 10.116 4.619 10.141C3.534 9.419 2.823 8.184 2.823 6.787C2.823 6.039 3.022 5.353 3.371 4.755C5.354 7.198 8.335 8.795 11.677 8.97C11.615 8.67 11.577 8.359 11.577 8.047C11.577 5.827 13.373 4.019 15.605 4.019C16.765 4.019 17.812 4.505 18.548 5.291C19.458 5.116 20.33 4.779 21.104 4.318C20.805 5.253 20.168 6.039 19.333 6.538C20.144 6.45 20.93 6.226 21.652 5.914C21.104 6.712 20.419 7.423 19.633 7.997Z"
+                      fill="#3A3C46"></path>
+                  </svg><span class="SiteFooter__SocialText-sc-2nu22f-5 hmaSpU">Twitter</span></a></div>
+              <div class="SiteFooter__SocialItem-sc-2nu22f-6 eVAZMP"><a href="https://www.reddit.com/r/HaruInvest/"
+                  target="_blank" rel="noreferrer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M20.4541 8.82053C19.8255 8.81524 19.2199 9.06588 18.7669 9.51882C16.8578 8.29467 14.6669 7.62717 12.4241 7.58635L13.7677 3.15302L17.4233 4.04618C17.4202 4.45476 17.534 4.85509 17.7501 5.19637C17.9662 5.53766 18.275 5.80453 18.6372 5.96312C18.9995 6.12171 19.3989 6.16488 19.7848 6.08714C20.1707 6.00941 20.5257 5.81428 20.8047 5.52651C21.0838 5.23873 21.2743 4.87129 21.3521 4.47078C21.4299 4.07028 21.3916 3.65478 21.2419 3.27698C21.0922 2.89918 20.8379 2.57611 20.5113 2.34877C20.1847 2.12142 19.8005 2.00004 19.4074 2.00003C19.0099 1.99775 18.621 2.12064 18.2919 2.35254C17.9629 2.58443 17.7091 2.91445 17.5639 3.29917L13.6114 2.34106C13.5714 2.32874 13.5295 2.32487 13.488 2.32968C13.4465 2.3345 13.4064 2.34789 13.37 2.36908C13.3336 2.39028 13.3017 2.41883 13.276 2.45306C13.2504 2.4873 13.2317 2.52652 13.2209 2.56841L11.6586 7.4402C9.30642 7.47401 7.00886 8.18206 5.01902 9.48634C4.7703 9.25268 4.47735 9.07564 4.15895 8.96656C3.84054 8.85748 3.50373 8.81877 3.17009 8.85293C2.83646 8.88708 2.51338 8.99333 2.22156 9.16488C1.92975 9.33642 1.67564 9.56947 1.47554 9.84907C1.27544 10.1287 1.13377 10.4487 1.05961 10.7885C0.985445 11.1284 0.980428 11.4806 1.04488 11.8225C1.10934 12.1645 1.24184 12.4887 1.43388 12.7744C1.62593 13.06 1.87329 13.3008 2.16009 13.4812C2.1362 13.7513 2.1362 14.0231 2.16009 14.2932C2.16009 17.9957 6.55004 21 11.9398 21C17.3296 21 21.7039 17.9957 21.7039 14.2932C21.7194 14.0336 21.7194 13.7733 21.7039 13.5137C22.184 13.2567 22.5663 12.8384 22.7884 12.3268C23.0105 11.8151 23.0595 11.2404 22.9272 10.6962C22.795 10.152 22.4893 9.67033 22.0601 9.32974C21.6309 8.98914 21.1034 8.80966 20.5635 8.82053H20.4541ZM7.17494 13.0427C7.17494 12.7473 7.25923 12.4584 7.41716 12.2127C7.57509 11.967 7.79956 11.7755 8.06219 11.6625C8.32481 11.5494 8.61381 11.5198 8.89261 11.5774C9.17142 11.6351 9.42751 11.7774 9.62852 11.9863C9.82953 12.1953 9.96641 12.4615 10.0219 12.7513C10.0773 13.0411 10.0489 13.3415 9.94008 13.6145C9.8313 13.8875 9.64707 14.1208 9.41072 14.285C9.17436 14.4491 8.89648 14.5368 8.61221 14.5368C8.42346 14.5368 8.23657 14.4981 8.06219 14.423C7.88781 14.348 7.72937 14.2379 7.59591 14.0992C7.46244 13.9604 7.35657 13.7957 7.28434 13.6145C7.21211 13.4332 7.17494 13.2389 7.17494 13.0427V13.0427ZM15.4236 17.5248C14.9444 17.9441 14.3893 18.2593 13.7909 18.4517C13.1925 18.6442 12.5631 18.71 11.9398 18.6453V18.6453C11.314 18.7122 10.6817 18.6475 10.0805 18.455C9.47924 18.2625 8.92146 17.9461 8.44036 17.5248C8.37821 17.4602 8.3433 17.3726 8.3433 17.2812C8.3433 17.1898 8.37821 17.1022 8.44036 17.0376C8.50251 16.973 8.58681 16.9367 8.6747 16.9367C8.7626 16.9367 8.84689 16.973 8.90904 17.0376C9.76408 17.7327 10.844 18.0585 11.9242 17.947V17.947C13.0044 18.0585 14.0843 17.7327 14.9393 17.0376C14.9701 17.0056 15.0066 16.9803 15.0469 16.9629C15.0871 16.9456 15.1302 16.9367 15.1737 16.9367C15.2172 16.9367 15.2603 16.9456 15.3005 16.9629C15.3407 16.9803 15.3772 17.0056 15.408 17.0376C15.4388 17.0696 15.4632 17.1076 15.4799 17.1494C15.4965 17.1912 15.5051 17.236 15.5051 17.2812C15.5051 17.3264 15.4965 17.3712 15.4799 17.413C15.4632 17.4548 15.4388 17.4928 15.408 17.5248H15.4236ZM15.2518 14.6017C14.9682 14.5985 14.6919 14.5082 14.4576 14.3421C14.2233 14.176 14.0415 13.9415 13.9351 13.6683C13.8287 13.395 13.8025 13.0951 13.8597 12.8064C13.9169 12.5177 14.055 12.253 14.2566 12.0457C14.4582 11.8384 14.7143 11.6977 14.9927 11.6413C15.2711 11.585 15.5593 11.6155 15.821 11.729C16.0827 11.8426 16.3063 12.0341 16.4635 12.2794C16.6208 12.5247 16.7047 12.8129 16.7047 13.1077C16.6885 13.4954 16.5278 13.8613 16.2566 14.128C15.9855 14.3948 15.6251 14.5413 15.2518 14.5368V14.6017Z"
+                      fill="#3A3C46"></path>
+                  </svg><span class="SiteFooter__SocialText-sc-2nu22f-5 hmaSpU">Reddit</span></a></div>
+              <div class="SiteFooter__SocialItem-sc-2nu22f-6 eVAZMP"><a href="https://t.me/HaruInvest" target="_blank"
+                  rel="noreferrer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M20.665 3.717L2.93497 10.554C1.72497 11.04 1.73197 11.715 2.71297 12.016L7.26497 13.436L17.797 6.791C18.295 6.488 18.75 6.651 18.376 6.983L9.84297 14.684H9.84097L9.84297 14.685L9.52897 19.377C9.98897 19.377 10.192 19.166 10.45 18.917L12.661 16.767L17.26 20.164C18.108 20.631 18.717 20.391 18.928 19.379L21.947 5.151C22.256 3.912 21.474 3.351 20.665 3.717Z"
+                      fill="#3A3C46"></path>
+                  </svg><span class="SiteFooter__SocialText-sc-2nu22f-5 hmaSpU">Telegram</span></a></div>
+              <div class="SiteFooter__SocialItem-sc-2nu22f-6 eVAZMP"><a href="https://www.instagram.com/haruinvest/"
+                  target="_blank" rel="noreferrer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M20.9469 8.305C20.9359 7.548 20.7959 6.797 20.5279 6.089C20.0589 4.88 19.1039 3.924 17.8949 3.456C17.1959 3.193 16.4569 3.052 15.7089 3.036C14.7469 2.993 14.4419 2.981 11.9999 2.981C9.55795 2.981 9.24495 2.981 8.28995 3.036C7.54295 3.052 6.80395 3.193 6.10495 3.456C4.89595 3.924 3.93995 4.88 3.47195 6.089C3.20895 6.788 3.06695 7.527 3.05295 8.274C3.00995 9.237 2.99695 9.542 2.99695 11.984C2.99695 14.426 2.99695 14.738 3.05295 15.694C3.06795 16.442 3.20895 17.18 3.47195 17.881C3.94095 19.089 4.89595 20.045 6.10595 20.513C6.80195 20.785 7.54095 20.939 8.29095 20.963C9.25395 21.006 9.55895 21.019 12.0009 21.019C14.4429 21.019 14.7559 21.019 15.7109 20.963C16.4579 20.948 17.1969 20.807 17.8969 20.544C19.1059 20.075 20.0609 19.119 20.5299 17.911C20.7929 17.211 20.9339 16.473 20.9489 15.724C20.9919 14.762 21.0049 14.457 21.0049 12.014C21.0029 9.572 21.0029 9.262 20.9469 8.305ZM11.9939 16.602C9.43995 16.602 7.37095 14.533 7.37095 11.979C7.37095 9.425 9.43995 7.356 11.9939 7.356C14.5459 7.356 16.6169 9.425 16.6169 11.979C16.6169 14.533 14.5459 16.602 11.9939 16.602ZM16.8009 8.263C16.2039 8.263 15.7229 7.781 15.7229 7.185C15.7229 6.589 16.2039 6.107 16.8009 6.107C17.3959 6.107 17.8779 6.589 17.8779 7.185C17.8779 7.781 17.3959 8.263 16.8009 8.263Z"
+                      fill="#3A3C46"></path>
+                    <path
+                      d="M11.994 14.982C13.6525 14.982 14.997 13.6375 14.997 11.979C14.997 10.3205 13.6525 8.976 11.994 8.976C10.3355 8.976 8.99097 10.3205 8.99097 11.979C8.99097 13.6375 10.3355 14.982 11.994 14.982Z"
+                      fill="#3A3C46"></path>
+                  </svg><span class="SiteFooter__SocialText-sc-2nu22f-5 hmaSpU">Instagram</span></a></div>
+              <div class="SiteFooter__SocialItem-sc-2nu22f-6 eVAZMP"><a href="https://www.facebook.com/haruinvest/"
+                  target="_blank" rel="noreferrer"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M20 3H4C3.447 3 3 3.448 3 4V20C3 20.552 3.447 21 4 21H12.615V14.04H10.277V11.315H12.615V9.315C12.615 6.99 14.035 5.723 16.115 5.723C16.814 5.721 17.514 5.757 18.21 5.83V8.25H16.775C15.647 8.25 15.427 8.788 15.427 9.575V11.31H18.124L17.774 14.035H15.426V21H20C20.553 21 21 20.552 21 20V4C21 3.448 20.553 3 20 3Z"
+                      fill="#3A3C46"></path>
+                  </svg><span class="SiteFooter__SocialText-sc-2nu22f-5 hmaSpU">Facebook</span></a></div>
+              <div class="SiteFooter__SocialItem-sc-2nu22f-6 eVAZMP"><a
+                  href="https://www.linkedin.com/company/haruinvest/" target="_blank" rel="noreferrer"><svg width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M20.5514 2H3.50762C2.69238 2 2 2.64476 2 3.43905V20.56C2 21.3552 2.45429 22 3.26952 22H20.3133C21.1295 22 22 21.3552 22 20.56V3.43905C22 2.64476 21.3676 2 20.5514 2ZM9.61905 9.61905H12.3114V10.9914H12.341C12.7514 10.2514 13.9638 9.5 15.4629 9.5C18.34 9.5 19.1429 11.0276 19.1429 13.8571V19.1429H16.2857V14.3781C16.2857 13.1114 15.78 12 14.5971 12C13.1609 12 12.4762 12.9724 12.4762 14.5686V19.1429H9.61905V9.61905ZM4.85714 19.1429H7.71429V9.61905H4.85714V19.1429ZM8.07143 6.28571C8.07143 7.27238 7.27238 8.07143 6.28571 8.07143C5.29905 8.07143 4.5 7.27238 4.5 6.28571C4.5 5.29905 5.29905 4.5 6.28571 4.5C7.27238 4.5 8.07143 5.29905 8.07143 6.28571Z"
+                      fill="#3A3C46"></path>
+                  </svg><span class="SiteFooter__SocialText-sc-2nu22f-5 hmaSpU">LinkedIn</span></a></div>
+            </div>
+          </div>
+          <div class="SiteFooter__NavWrapper-sc-2nu22f-7 LePKn">
+            <div class="trustpilot-widget" data-locale="en-US" data-template-id="53aa8807dec7e10d38f59f32"
+              data-businessunit-id="5f5699606de9c90001858b6c" data-style-height="100%" data-style-width="235px"
+              data-theme="light"><a href="https://www.trustpilot.com/review/haruinvest.com" target="_blank"
+                rel="noopener noreferrer">Trustpilot</a></div>
+            <div class="SiteFooter__NavList-sc-2nu22f-8 gHlnUn">
+              <div class="SiteFooter__Nav-sc-2nu22f-9 eerzPr">
+                <div class="SiteFooter__NavTitle-sc-2nu22f-10 eYZhfT">Products</div>
+                <div class="SiteFooter__SubNav-sc-2nu22f-11 bpJaCb">
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Earn</a></div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Switch</a></div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Freeze</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="SiteFooter__Nav-sc-2nu22f-9 eerzPr">
+                <div class="SiteFooter__NavTitle-sc-2nu22f-10 eYZhfT">Discover</div>
+                <div class="SiteFooter__SubNav-sc-2nu22f-11 bpJaCb">
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Refer &amp; Earn</a>
+                    </div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Ambassadors</a></div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">VIP Luminary Club</a>
+                    </div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Mobile App</a></div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Blog</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="SiteFooter__Nav-sc-2nu22f-9 eerzPr">
+                <div class="SiteFooter__NavTitle-sc-2nu22f-10 eYZhfT">Company</div>
+                <div class="SiteFooter__SubNav-sc-2nu22f-11 bpJaCb">
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">About Us</a></div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Trust and
+                        Security</a></div>
+                  </div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz">
+                    <div class="HaruLink__LinkWrapper-sc-bk2kri-0 khGTHP"><a class="respect-color">Trading
+                        Strategies</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="SiteFooter__Nav-sc-2nu22f-9 eerzPr">
+                <div class="SiteFooter__NavTitle-sc-2nu22f-10 eYZhfT">Support</div>
+                <div class="SiteFooter__SubNav-sc-2nu22f-11 bpJaCb">
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz"><a class="respect-color"
+                      href="https://support.haruinvest.com/hc/en-us">Help Center</a></div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz"><a class="respect-color"
+                      href="https://webapp.haruinvest.com/service/terms_of_service">Terms of Service</a></div>
+                  <div class="SiteFooter__SubNavItem-sc-2nu22f-12 eEQEUz"><a class="respect-color"
+                      href="https://webapp.haruinvest.com/service/privacy_policy">Privacy Policy</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="SiteFooter__SocialWrapper-sc-2nu22f-14 fSQARf">
+            <div class="SiteFooter__ContactWrapper-sc-2nu22f-15 fyepnI">For business inquiries,<br>contact us at
+              <b>corporate@haruinvest.com</b></div>
+          </div>
+          <div class="SiteFooter__AddressWrapper-sc-2nu22f-16 ljfsyf">
+            <div class="SiteFooter__Address-sc-2nu22f-17 SacFv">Unit 8, 3/F., Qwomar Trading Complex, Blackburne Road,
+              Port Purcell, Tortola, BVI</div>
+            <div class="SiteFooter__SelectedLanguageWrapper-sc-2nu22f-18 fecBzj">
+              <section class="SelectedLanguage__Wrapper-sc-1cxq7my-1 fQEMPt">
+                <section class="SelectedLanguage__SelectorButton-sc-1cxq7my-0 dPHqYd"><img
+                    src="fonts/ic-globe.svg">English</section>
+              </section>
+            </div>
+          </div>
+          <div class="SiteFooter__DisclaimerWrapper-sc-2nu22f-19 fTOvAa">
+            <div class="SiteFooter__Disclaimer-sc-2nu22f-20 klwhZr">Digital assets are not legal tender, is not backed
+              by the government, and your accounts held at haruinvest.com are not subject to deposit insurance afforded
+              by the government such as FDIC. Dealing in digital assets can incur risk of financial loss. Digital assets
+              are by their nature highly volatile and you should be aware that the risk of loss in trading, investing or
+              holding digital assets can be substantial. haruinvest.com does not provide any financial, legal or tax
+              advice, nor should this website be viewed as an offer or inducement to make any financial decisions.</div>
+            <div class="SiteFooter__Disclaimer-sc-2nu22f-20 klwhZr">Not all products and services are available in all
+              geographic areas and legislative and regulatory changes or actions at the state, national, or
+              international level may adversely affect the service of haruinvest.com in some jurisdictions and
+              haruinvest.com can not guarantee the continued and uninterrupted provision of the services to you. Rates
+              for the products at haruinvest.com are subject to change.</div>
+          </div>
+          <div class="SiteFooter__Copyright-sc-2nu22f-21 wVzWc">© 2020-2022 Haruinvest.com. All rights reserved.</div>
+        </div>
+      </div>
+      <div class="CRMButton__Wrapper-sc-1po6dry-0 gpWAyr"><button
+          class="MuiButtonBase-root MuiButton-root jss15 MuiButton-text" tabindex="0" type="button"><span
+            class="MuiButton-label"><svg width="42" height="38" viewBox="0 0 42 38" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2348_191)">
+                <path
+                  d="M21 0C32.5344 0 42 8.52298 42 19C42 23.7753 39.9386 28.3488 36.3997 31.8398C36.0683 32.1674 36.0634 32.7112 36.3907 33.0431L39.8631 36.5644C40.3823 37.0905 40.0198 38 39.2913 38H21C9.46558 38 0 29.477 0 19C0 8.52298 9.46558 0 21 0Z"
+                  fill="#5A41F5"></path>
+                <path
+                  d="M12.6967 24.2548C12.4278 24.0711 12.0915 24.0811 11.8289 24.2064C11.5658 24.3321 11.35 24.5873 11.35 24.9205C11.35 25.119 11.4285 25.3129 11.5858 25.4476C12.3835 26.131 15.6796 28.65 20.9298 28.65C26.1681 28.65 29.5657 26.1422 30.4 25.4537C30.5662 25.3165 30.65 25.1152 30.65 24.9083C30.65 24.574 30.4368 24.3162 30.1736 24.1881C29.911 24.0602 29.5745 24.0488 29.3024 24.2307C27.84 25.2087 24.9609 26.6887 20.9298 26.6887C16.9304 26.6887 14.1272 25.2319 12.6967 24.2548Z"
+                  fill="white" stroke="white" stroke-width="0.3" stroke-linejoin="round"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_2348_191">
+                  <rect width="42" height="38" fill="white" transform="matrix(-1 0 0 1 42 0)"></rect>
+                </clipPath>
+              </defs>
+            </svg></span></button></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var earn_btn = document.getElementById('earn_btn');
+      var discover_btn = document.getElementById('discover_btn');
+      var company_btn = document.getElementById('company_btn');
+      var language_btn = document.getElementById('language_btn');
+
+      earn_btn.addEventListener('mouseover', function() {
+        var list = document.getElementById('earn_list');
+        list.style.visibility = 'visible';
+      });
+
+      earn_btn.addEventListener('mouseout', function() {
+        var list = document.getElementById('earn_list');
+        var rect = list.getBoundingClientRect();
+        var x = event.clientX;
+        var y = event.clientY;
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          list.style.visibility = 'hidden';
+        }
+      });
+
+      discover_btn.addEventListener('mouseover', function() {
+        var list = document.getElementById('discover_list');
+        list.style.visibility = 'visible';
+      });
+
+      discover_btn.addEventListener('mouseout', function() {
+        var list = document.getElementById('discover_list');
+        var rect = list.getBoundingClientRect();
+        var x = event.clientX;
+        var y = event.clientY;
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          list.style.visibility = 'hidden';
+        }
+      });
+
+      company_btn.addEventListener('mouseover', function() {
+        var list = document.getElementById('company_list');
+        list.style.visibility = 'visible';
+      });
+
+      company_btn.addEventListener('mouseout', function() {
+        var list = document.getElementById('company_list');
+        var rect = list.getBoundingClientRect();
+        var x = event.clientX;
+        var y = event.clientY;
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          list.style.visibility = 'hidden';
+        }
+      });
+
+      language_btn.addEventListener('mouseover', function() {
+        var list = document.getElementById('language_list');
+        list.style.visibility = 'visible';
+      });
+
+      language_btn.addEventListener('mouseout', function() {
+        var list = document.getElementById('language_list');
+        var rect = list.getBoundingClientRect();
+        var x = event.clientX;
+        var y = event.clientY;
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+          list.style.visibility = 'hidden';
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
